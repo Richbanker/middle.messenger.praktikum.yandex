@@ -8,6 +8,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        index: 'index.html',
+        auth: 'auth.html',
+        register: 'register.html',
+        chats: 'chats.html',
+        profile: 'profile.html',
+        notFound: '404.html',
+        error500: '500.html'
+      }
+    }
   }
 });
