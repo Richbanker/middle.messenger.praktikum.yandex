@@ -23,11 +23,10 @@
 - `/500.html` — страница ошибки 500  
 
 ## Деплой
-- Ветка: `deploy`  
+- Production: [https://middle-messenger-sprint1.netlify.app](https://middle-messenger-sprint1.netlify.app)  
 - Build command: `npm run build`  
 - Publish directory: `dist`  
-- Node версия: `18.19.0`  
-- Сайт: [https://your-netlify-site.netlify.app](https://your-netlify-site.netlify.app)
+- Node версия: `18`
 
 ## Прототипы
 - Изображения макетов хранятся в папке `ui/`  
