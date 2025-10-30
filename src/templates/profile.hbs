@@ -1,0 +1,21 @@
+<main class="page page--profile">
+  <section class="card card--wide stack">
+    <div class="stack" style="place-items:center">
+      {{> heading text="Профиль" }}
+      {{> avatar src="/placeholder-avatar.png" alt="Аватар" }}
+    </div>
+    <form class="form form--profile">
+      {{> input label="Имя"            type="text"     name="first_name"   placeholder="Имя" }}
+      {{> input label="Фамилия"        type="text"     name="second_name"  placeholder="Фамилия" }}
+      {{> input label="Отображаемое"   type="text"     name="display_name" placeholder="Отображаемое имя" }}
+      {{> input label="Логин"          type="text"     name="login"        placeholder="Логин" }}
+      {{> input label="Email"          type="email"    name="email"        placeholder="name@example.com" }}
+      {{> input label="Телефон"        type="tel"      name="phone"        placeholder="+7..." }}
+      {{> input label="Аватар (URL)"   type="url"      name="avatar"       placeholder="https://..." }}
+      {{> input label="Старый пароль"  type="password" name="oldPassword"  placeholder="Старый пароль" }}
+      {{> input label="Новый пароль"   type="password" name="newPassword"  placeholder="Новый пароль" }}
+      <button type="submit" class="btn">Сохранить</button>
+    </form>
+  </section>
+</main>
+

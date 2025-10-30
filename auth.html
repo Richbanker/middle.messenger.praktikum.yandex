@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Auth</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <footer class="footer">
+      <nav class="links">
+        <a href="/auth.html">Авторизация</a>
+        <a href="/register.html">Регистрация</a>
+        <a href="/chats.html">Чаты</a>
+        <a href="/profile.html">Профиль</a>
+        <a href="/404.html">404</a>
+        <a href="/500.html">500</a>
+      </nav>
+    </footer>
+    <script type="module">
+      import { mountTemplate } from '/src/main.ts';
+      import tpl from '/src/templates/auth.hbs?raw';
+      mountTemplate(tpl);
+    </script>
+  </body>
+  </html>
+
+
