@@ -1,0 +1,18 @@
+<main class="page page--register">
+  <section class="card">
+    <header class="card__header">
+      <h1 class="card__title">Регистрация</h1>
+      <p class="card__subtitle">Создайте аккаунт за минуту</p>
+    </header>
+    <form class="form form--register">
+      {{> input label="Имя"         type="text"     name="first_name"  placeholder="Имя" }}
+      {{> input label="Фамилия"     type="text"     name="second_name" placeholder="Фамилия" }}
+      {{> input label="Логин"       type="text"     name="login"       placeholder="Логин" }}
+      {{> input label="Email"       type="email"    name="email"       placeholder="name@example.com" }}
+      {{> input label="Пароль"      type="password" name="password"    placeholder="Пароль" }}
+      {{> input label="Телефон"     type="tel"      name="phone"       placeholder="+7..." }}
+      <button type="submit" class="btn">Зарегистрироваться</button>
+    </form>
+  </section>
+</main>
+
