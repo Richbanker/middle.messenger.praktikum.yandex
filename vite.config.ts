@@ -11,13 +11,13 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        index: 'index.html',
-        auth: 'auth.html',
-        register: 'register.html',
-        chats: 'chats.html',
-        profile: 'profile.html',
-        notFound: '404.html',
-        error500: '500.html'
+        index: 'pages/index.html',
+        auth: 'pages/auth.html',
+        register: 'pages/register.html',
+        chats: 'pages/chats.html',
+        profile: 'pages/profile.html',
+        notFound: 'pages/404.html',
+        error500: 'pages/500.html'
       }
     }
   }
