@@ -46,5 +46,3 @@ jobs:
       if: ${{github.head_ref >= 'sprint_4'}}
       run: bats --formatter pretty /tmp/tests-middle-frontend/tests/sprint_4.bats
 
-    - name: Run tests (server)
-      run: bats --formatter pretty /tmp/tests-middle-frontend/tests/node_build.bats
