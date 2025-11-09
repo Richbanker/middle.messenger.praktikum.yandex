@@ -6,7 +6,9 @@ export type RuleName =
   | 'password'
   | 'phone'
   | 'message'
-  | 'oldPassword';
+  | 'oldPassword'
+  | 'newPassword'
+  | 'display_name';
 
 const patterns: Record<RuleName, RegExp> = {
   first_name: /^[A-ZА-ЯЁ][a-zа-яё-]+$/,
@@ -17,6 +19,8 @@ const patterns: Record<RuleName, RegExp> = {
   phone: /^\+?\d{10,15}$/,
   message: /^(?!\s*$).+$/,
   oldPassword: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+={}\-:.]{8,40}$/,
+  newPassword: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+={}\-:.]{8,40}$/,
+  display_name: /^[A-ZА-ЯЁa-zа-яё0-9_-]{3,20}$/,
 };
 
 const errorMessages: Record<RuleName, string> = {
@@ -28,6 +32,8 @@ const errorMessages: Record<RuleName, string> = {
   phone: 'От 10 до 15 символов, состоит из цифр, может начинаться с плюса',
   message: 'Сообщение не должно быть пустым',
   oldPassword: 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
+  newPassword: 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
+  display_name: 'От 3 до 20 символов, латиница или кириллица, может содержать цифры, дефис и подчёркивание',
 };
 
 export function validateField(name: string, value: string): string | null {

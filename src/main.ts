@@ -47,7 +47,10 @@ function renderRoute(pathname: string): void {
 (window as Window & { renderRoute?: (pathname: string) => void }).renderRoute = renderRoute;
 
 document.addEventListener('click', (e: Event) => {
-  const target = e.target as HTMLElement;
+  const target = e.target;
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
   const a = target.closest('a[data-link]') as HTMLAnchorElement | null;
   if (!a) {
     return;

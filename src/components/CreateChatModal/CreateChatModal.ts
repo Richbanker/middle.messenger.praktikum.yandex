@@ -35,7 +35,7 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
     const avatarInput = this.element.querySelector<HTMLInputElement>('input[type="file"]');
 
     if (closeButton) {
-      closeButton.addEventListener('click', () => {
+      this.addListener(closeButton, 'click', () => {
         this.props.onClose?.();
       });
     }
@@ -43,20 +43,20 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
     const overlay = this.element.querySelector('.create-chat-modal__overlay');
     const content = this.element.querySelector('.create-chat-modal__content');
     if (overlay) {
-      overlay.addEventListener('click', (e: Event) => {
+      this.addListener(overlay, 'click', (e: Event) => {
         if (e.target === overlay) {
           this.props.onClose?.();
         }
       });
     }
     if (content) {
-      content.addEventListener('click', (e: Event) => {
+      this.addListener(content, 'click', (e: Event) => {
         e.stopPropagation();
       });
     }
 
     if (avatarInput) {
-      avatarInput.addEventListener('change', (e: Event) => {
+      this.addListener(avatarInput, 'change', (e: Event) => {
         const input = e.target as HTMLInputElement;
         const file = input.files?.[0];
         if (file) {
@@ -70,7 +70,7 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
     }
 
     if (form) {
-      form.addEventListener('submit', (e: Event) => {
+      this.addListener(form, 'submit', (e: Event) => {
         e.preventDefault();
         this.handleSubmit(form);
       });

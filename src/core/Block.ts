@@ -3,19 +3,20 @@ import { nanoid } from './nanoid';
 
 export type Props = Record<string, unknown>;
 
-export class Block<P extends Props = Props> {
+export abstract class Block<P extends Props = Props> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
-  };
+  } as const;
 
   public id = nanoid(6);
   protected props: P;
   protected children: Record<string, Block | Block[]>;
   protected eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
+  private _listeners: Array<{ element: EventTarget; event: string; handler: EventListener }> = [];
 
   constructor(props: P = {} as P) {
     const eventBus = new EventBus();
@@ -85,6 +86,8 @@ export class Block<P extends Props = Props> {
   }
 
   private _render(): void {
+    this._removeEvents();
+    
     const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -135,6 +138,24 @@ export class Block<P extends Props = Props> {
     });
   }
 
+  private _removeEvents(): void {
+    const { events = {} } = this.props as P & { events?: Record<string, (e: Event) => void> };
+    Object.keys(events).forEach((eventName) => {
+      if (this._element && events[eventName]) {
+        this._element.removeEventListener(eventName, events[eventName] as EventListener);
+      }
+    });
+    
+    this._listeners.forEach(({ element, event, handler }) => {
+      element.removeEventListener(event, handler);
+    });
+    this._listeners = [];
+  }
+
+  protected addListener(element: EventTarget, event: string, handler: EventListener): void {
+    element.addEventListener(event, handler);
+    this._listeners.push({ element, event, handler });
+  }
 
   getContent(): HTMLElement | null {
     return this._element;

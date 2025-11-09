@@ -8,6 +8,7 @@ interface ProfileFormData {
   login: string;
   first_name: string;
   second_name: string;
+  display_name?: string;
   phone: string;
   avatar?: string;
 }
@@ -24,6 +25,7 @@ export class Profile extends View {
       login: '',
       first_name: '',
       second_name: '',
+      display_name: '',
       phone: '',
     };
     this.loadProfileData();
@@ -47,6 +49,7 @@ export class Profile extends View {
           login: data.login || '',
           first_name: data.first_name || '',
           second_name: data.second_name || '',
+          display_name: data.display_name || '',
           phone: data.phone || '',
           avatar: this.profileData.avatar || '',
         };
@@ -57,6 +60,7 @@ export class Profile extends View {
         localStorage.setItem('profile_login', profileData.login);
         localStorage.setItem('profile_first_name', profileData.first_name);
         localStorage.setItem('profile_second_name', profileData.second_name);
+        localStorage.setItem('profile_display_name', profileData.display_name || '');
         localStorage.setItem('profile_phone', profileData.phone);
         if (profileData.avatar) {
           localStorage.setItem('profile_avatar', profileData.avatar);
@@ -123,6 +127,7 @@ export class Profile extends View {
       login: localStorage.getItem('profile_login') || '',
       first_name: localStorage.getItem('profile_first_name') || '',
       second_name: localStorage.getItem('profile_second_name') || '',
+      display_name: localStorage.getItem('profile_display_name') || '',
       phone: localStorage.getItem('profile_phone') || '',
       avatar: localStorage.getItem('profile_avatar') || '',
     };
@@ -155,6 +160,7 @@ export class Profile extends View {
               <input 
                 type="file" 
                 id="avatar-input" 
+                name="avatar"
                 accept="image/*" 
                 style="display: none"
               />
@@ -205,6 +211,18 @@ export class Profile extends View {
                   placeholder="Фамилия" 
                   class="input"
                   value="${this.profileData.second_name}"
+                />
+                <span class="input-error"></span>
+              </div>
+
+              <div class="input-wrapper">
+                <label class="input-label">Имя в чате</label>
+                <input 
+                  type="text" 
+                  name="display_name" 
+                  placeholder="Имя в чате" 
+                  class="input"
+                  value="${this.profileData.display_name || ''}"
                 />
                 <span class="input-error"></span>
               </div>

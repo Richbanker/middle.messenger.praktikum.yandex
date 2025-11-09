@@ -1,5 +1,18 @@
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
+export enum HttpStatus {
+  Ok = 200,
+  Created = 201,
+  NoContent = 204,
+  MultipleChoices = 300,
+  BadRequest = 400,
+  Unauthorized = 401,
+  Forbidden = 403,
+  NotFound = 404,
+  Conflict = 409,
+  InternalServerError = 500,
+}
+
 interface RequestOptions {
   headers?: Record<string, string>;
   data?: unknown;
@@ -57,13 +70,13 @@ export class HTTPTransport {
         const isJson = type.includes('application/json');
         try {
           const parsed = isJson && xhr.responseText ? JSON.parse(xhr.responseText) : xhr.responseText;
-          if (xhr.status >= 200 && xhr.status < 300) {
+          if (xhr.status >= HttpStatus.Ok && xhr.status < HttpStatus.MultipleChoices) {
             resolve(parsed);
           } else {
             reject(parsed || new Error(`HTTP ${xhr.status}`));
           }
         } catch {
-          if (xhr.status >= 200 && xhr.status < 300) {
+          if (xhr.status >= HttpStatus.Ok && xhr.status < HttpStatus.MultipleChoices) {
             resolve(xhr.responseText);
           } else {
             reject(new Error(`HTTP ${xhr.status}`));

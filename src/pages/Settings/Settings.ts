@@ -45,24 +45,28 @@ export class Settings extends View {
             <h1 class="page__title">Настройки</h1>
             <form class="form">
               <div class="input-wrapper">
-                <label class="input-label">Старый пароль</label>
-                <input 
-                  type="password" 
-                  name="oldPassword" 
-                  placeholder="Старый пароль" 
-                  class="input"
-                />
+                <label class="input-label">
+                  Старый пароль
+                  <input 
+                    type="password" 
+                    name="oldPassword" 
+                    placeholder="Старый пароль" 
+                    class="input"
+                  />
+                </label>
                 <span class="input-error"></span>
               </div>
 
               <div class="input-wrapper">
-                <label class="input-label">Новый пароль</label>
-                <input 
-                  type="password" 
-                  name="password" 
-                  placeholder="Новый пароль" 
-                  class="input"
-                />
+                <label class="input-label">
+                  Новый пароль
+                  <input 
+                    type="password" 
+                    name="newPassword" 
+                    placeholder="Новый пароль" 
+                    class="input"
+                  />
+                </label>
                 <span class="input-error"></span>
               </div>
 
