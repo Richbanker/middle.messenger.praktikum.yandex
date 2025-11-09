@@ -9,7 +9,8 @@
     "start": "vite --port 3000",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
-    "stylelint": "stylelint \"src/**/*.css\" --fix"
+    "stylelint": "stylelint \"src/**/*.css\" --fix",
+    "test": "npm run typecheck && npm run lint && npm run stylelint"
   },
   "dependencies": {
     "express": "^4.18.2"
