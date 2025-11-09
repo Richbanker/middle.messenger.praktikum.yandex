@@ -4,7 +4,7 @@
 
 ## 🚀 Deploy
 
-[Посмотреть деплой на Netlify](https://middle-messenger-sprint1.netlify.app)
+[Посмотреть деплой на Netlify](https://deploy-preview-5--middle-messenger-sprint1.netlify.app)
 
 ## Описание
 
