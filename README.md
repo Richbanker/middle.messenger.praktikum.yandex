@@ -135,10 +135,10 @@ npm run typecheck
 ### Линтинг
 
 ```bash
-# Проверка TypeScript/JavaScript
+ 
 npm run lint
 
-# Проверка CSS
+ 
 npm run stylelint
 ```
 
