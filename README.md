@@ -1,6 +1,6 @@
 # Sprint 3
 
-Учебное приложение-мессенджер на React, TypeScript и Vite для практики роутинга, интеграции API Яндекс.Практикума и realtime сообщений через WebSocket.
+приложение-мессенджер на TypeScript, собственном шаблонизаторе (Block/EventBus) и Vite для практики роутинга, интеграции API Яндекс.Практикума и realtime-сообщений через WebSocket.
 
 ## Возможности
 
@@ -10,13 +10,13 @@
 - Чаты: список, создание/удаление, добавление/удаление пользователей.
 - WebSocket: история сообщений + лайв-сообщения с пингом.
 - Защитные заголовки (CSP и др.) при выдаче статики через Express.
-- Собственные структуры данных: bubbleSort, Stack, Queue.
+- Собственные структуры данных: `bubbleSort`, `Stack`, `Queue`.
 
 ## Стек
 
 - Vite + TypeScript
 - Собственный шаблонизатор на Block/EventBus
-- Собственный Router (router.go)
+- Собственный Router (`router.go`)
 - HTTP API Яндекс Практикума + WebSocket
 - ESLint (flat config) + Prettier + Husky
 
@@ -44,14 +44,4 @@
 npm install
 npm run dev
 ```
-
-Сборка и предпросмотр: `npm run build` → `npm run preview`.
-
-Выдача статики с CSP: `npm run build` → `npm run serve` (Express раздаёт `dist/`).
-
-## Деплой на Netlify
-
-- Сборка: `npm run build`
-- Директория деплоя: `dist`
-- Node 18+; при необходимости добавить заголовки CSP на стороне Netlify (или использовать готовый Express при self-hosted).
 
