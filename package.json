@@ -10,8 +10,7 @@
     "serve": "node server.js",
     "lint": "eslint \"src/**/*.ts\" --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --check \"src/**/*.{ts,css,md}\"",
-    "prepare": "husky install"
+    "format": "prettier --check \"src/**/*.{ts,css,md}\""
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.49.0",
