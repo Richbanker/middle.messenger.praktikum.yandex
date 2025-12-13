@@ -1,2 +1,0 @@
-export { MessageList } from './MessageList';
-
