@@ -1,68 +1,66 @@
-export interface ValidationRule {
-  pattern: RegExp;
-  message: string;
-}
-
-export interface ValidationRules {
-  [key: string]: ValidationRule;
-}
-
-export interface FormData {
-  [key: string]: string;
-}
-
-export interface HTTPOptions {
-  method?: string;
-  headers?: Record<string, string>;
-  data?: unknown;
-  timeout?: number;
-}
-
-export type ID = string;
-
-export interface User {
-  id: ID;
-  login: string;
+export type User = {
+  id: number;
   first_name: string;
   second_name: string;
-  avatar?: string;
-}
+  display_name: string | null;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string | null;
+};
 
-export interface Chat {
-  id: ID;
+export type SignInPayload = {
+  login: string;
+  password: string;
+};
+
+export type SignUpPayload = {
+  first_name: string;
+  second_name: string;
+  display_name?: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+};
+
+export type ProfilePayload = Omit<SignUpPayload, 'password'>;
+
+export type PasswordPayload = {
+  oldPassword: string;
+  newPassword: string;
+};
+
+export type Chat = {
+  id: number;
   title: string;
-  avatar?: string;
-  unreadCount: number;
-  lastMessage?: Message;
-  messages: Message[];
+  avatar: string | null;
+  unread_count: number;
+  created_by?: number;
   last_message?: {
-    content: string;
+    user: User;
     time: string;
+    content: string;
   };
-  unread_count?: number;
-}
+};
 
-export interface Message {
-  id: ID;
-  chatId: ID;
-  authorId: ID;
-  text: string;
-  createdAt: string;
-  isOwn: boolean;
+export type ChatUser = User & {
+  role: 'admin' | 'creator' | 'regular';
+};
+
+export type ChatToken = {
+  token: string;
+};
+
+export type Message = {
+  id: number;
+  chat_id: number;
+  time: string;
+  user_id?: number;
   content?: string;
-  time?: string;
-  user_id?: string;
-  type?: 'message' | 'file';
-}
+  type: 'message' | 'file' | 'sticker' | 'system';
+};
 
-export interface ChatsState {
-  chats: Chat[];
-  selectedChatIds: ID[];
-  selectAll: boolean;
-}
-
-export interface RootState {
-  user: User | null;
-  chats: ChatsState;
-}
-
+export type ApiError = {
+  reason: string;
+};

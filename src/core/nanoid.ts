@@ -1,10 +1,9 @@
-export function nanoid(size = 21): string {
-  const alphabet = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLFGQZbfghjklqvwyzrict';
+const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+export const nanoid = (size = 6): string => {
   let id = '';
-  let i = size;
-  while (i--) {
-    id += alphabet[(Math.random() * 64) | 0];
+  for (let i = 0; i < size; i += 1) {
+    id += ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
   }
   return id;
-}
-
+};

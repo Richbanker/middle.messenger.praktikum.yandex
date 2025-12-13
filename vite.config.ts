@@ -1,14 +1,18 @@
-import { defineConfig } from 'vite';
 import path from 'path';
+import { defineConfig } from 'vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 export default defineConfig({
+  plugins: [basicSsl()],
   server: {
-    port: 3000,
+    https: true,
+    host: 'localhost',
+    port: 5175,
+    strictPort: true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 });
-

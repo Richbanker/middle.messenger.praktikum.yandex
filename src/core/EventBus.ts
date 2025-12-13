@@ -1,31 +1,26 @@
-type Listener = (...args: unknown[]) => void;
+type Handler<TArgs extends unknown[] = unknown[]> = (...args: TArgs) => void;
 
-export class EventBus {
-  private listeners: Record<string, Listener[]> = {};
+export class EventBus<TEvents extends Record<string, Handler> = Record<string, Handler>> {
+  private listeners: { [K in keyof TEvents]?: TEvents[K][] } = {};
 
-  on(event: string, callback: Listener): void {
+  on<K extends keyof TEvents>(event: K, callback: TEvents[K]): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
-    this.listeners[event].push(callback);
+    this.listeners[event]?.push(callback);
   }
 
-  off(event: string, callback: Listener): void {
+  off<K extends keyof TEvents>(event: K, callback: TEvents[K]): void {
     if (!this.listeners[event]) {
       return;
     }
-    this.listeners[event] = this.listeners[event].filter(
-      (listener) => listener !== callback
-    );
+    this.listeners[event] = this.listeners[event]!.filter((listener) => listener !== callback);
   }
 
-  emit(event: string, ...args: unknown[]): void {
+  emit<K extends keyof TEvents>(event: K, ...args: Parameters<TEvents[K]>): void {
     if (!this.listeners[event]) {
       return;
     }
-    this.listeners[event].forEach((listener) => {
-      listener(...args);
-    });
+    this.listeners[event]!.forEach((listener) => listener(...args));
   }
 }
-

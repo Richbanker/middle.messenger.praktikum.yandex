@@ -30,7 +30,7 @@ export abstract class Block<P extends Props = Props> {
   private _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    // @ts-expect-error - EventBus типизация требует уточнения
+    // @ts-expect-error - EventBus типизация не проверяет состав аргументов
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
@@ -87,7 +87,6 @@ export abstract class Block<P extends Props = Props> {
 
   private _render(): void {
     this._removeEvents();
-    
     const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -101,6 +100,7 @@ export abstract class Block<P extends Props = Props> {
 
     this._element = newElement;
     this._addEvents();
+    this.componentDidMount();
   }
 
   protected render(): DocumentFragment {
@@ -145,7 +145,7 @@ export abstract class Block<P extends Props = Props> {
         this._element.removeEventListener(eventName, events[eventName] as EventListener);
       }
     });
-    
+
     this._listeners.forEach(({ element, event, handler }) => {
       element.removeEventListener(event, handler);
     });
@@ -183,4 +183,3 @@ export abstract class Block<P extends Props = Props> {
     });
   }
 }
-
