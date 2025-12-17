@@ -1,33 +1,42 @@
 {
-  "name": "sprint2-messenger",
-  "version": "1.0.0",
+  "name": "easy-bundler",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.16.1"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.json && vite build",
+    "build": "vite build",
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
-    "stylelint": "stylelint \"src/**/*.css\" --fix",
-    "test": "npm run typecheck && npm run lint && npm run stylelint"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "patch-package": "^8.0.1"
+    "build:preview": "npm run build && npm run preview",
+    "lint": "eslint src/**/*.{ts,js}",
+    "lint:fix": "eslint src/**/*.{ts,js} --fix",
+    "lint:styles": "stylelint \"src/**/*.{css,scss}\"",
+    "lint:styles:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
+    "lint:all": "npm run lint && npm run lint:styles"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "esbuild": "^0.25.12",
-    "eslint": "^8.56.0",
-    "postcss": "^8.4.33",
-    "stylelint": "^16.0.2",
-    "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "@cloudflare/playwright-mcp": "^0.0.5",
+    "@executeautomation/playwright-mcp-server": "^1.0.6",
+    "@modelcontextprotocol/server-filesystem": "^2025.8.21",
+    "@modelcontextprotocol/server-sequential-thinking": "^2025.7.1",
+    "@types/node": "^24.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "@upstash/context7-mcp": "^1.0.17",
+    "eslint": "^9.36.0",
+    "sass-embedded": "^1.86.3",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "typescript": "^5.9.2",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "uuid": "^11.1.0",
+    "vite-plugin-handlebars": "^2.0.0"
   }
 }

@@ -1,0 +1,192 @@
+@use '../utils' as *;
+
+.registration-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f5f7fb;
+}
+
+.registration-container {
+    width: 100%;
+  max-width: 520px;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow:
+    0 12px 30px rgba(17, 24, 39, 0.08),
+    0 6px 12px rgba(17, 24, 39, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #0f172a;
+}
+
+.registration-form__header {
+      text-align: center;
+  margin-bottom: 4px;
+    }
+
+.registration-form__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0;
+  margin-bottom: 6px;
+}
+
+.registration-form__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  margin: 0;
+    }
+
+    .form {
+        display: flex;
+          flex-direction: column;
+  gap: 14px;
+}
+
+.form__actions {
+  margin-top: 8px;
+}
+
+.input-group {
+  margin-bottom: 0;
+}
+
+.input-group__label {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.input-group__required {
+  color: #ef4444;
+}
+
+.input-group input {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  color: #111827;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  height: 44px;
+  padding: 12px 14px;
+  letter-spacing: 0;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 18px;
+  background: #2563eb;
+  border: 1px solid #1d4ed8;
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  box-shadow: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: #1d4ed8;
+    border-color: #1e40af;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &--pulse {
+    animation: none;
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
+.terms {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.terms__link {
+  color: #2563eb;
+    text-decoration: none;
+  font-weight: 600;
+
+    &:hover {
+    text-decoration: underline;
+  }
+}
+
+.registration-form__footer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 14px;
+  color: #111827;
+  text-transform: none;
+  letter-spacing: 0;
+    }
+
+.registration-form__footer .neon-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.registration-page .form {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  position: static;
+}
+
+.registration-page .form--neon {
+  border: none;
+  box-shadow: none;
+}
+
+.registration-page .form--neon::before {
+  display: none;
+}

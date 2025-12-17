@@ -1,0 +1,23 @@
+$error-color: #ef4444;
+
+.input-group {
+  position: relative;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.input-group__label {
+    display: block;
+  margin-bottom: 6px;
+  color: #111827;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-size: 14px;
+  text-transform: none;
+  }
+
+.input-group__required {
+  color: #ef4444;
+  margin-left: 4px;
+}
