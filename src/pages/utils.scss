@@ -1,0 +1,242 @@
+@use "sass:map";
+@use "sass:color";
+
+$color-neon-green: #2ecc71;
+$color-neon-orange: #ff8c00;
+$color-neon-orange-dark:  color.mix(rgba(0, 0, 0, 1), $color-neon-orange, 10%);
+
+$color-dark-bg: #0a0a12;
+$color-darker-bg: #050508;
+$color-neon-blue: #0ff0fc;
+$color-neon-pink: #ff2a6d;
+$color-neon-purple: #9d00ff;
+$color-error: #ff3860;
+$color-success: #2ecc71;
+$color-warning: #f39c12;
+$color-neon-orange: #ff8c00;
+
+$color-text: #ffffff;
+$color-text-secondary: #cccccc;
+
+$color-neon-blue-dark: color.mix(#000, $color-neon-blue, 15%);
+$color-neon-pink-dark: color.adjust($color-neon-pink, $lightness: -10%);
+$color-neon-purple-dark: color.scale($color-neon-purple, $lightness: -15%);
+@mixin text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @mixin custom-scrollbar($color) {
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba($color, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba($color, 0.4);
+      border-radius: 3px;
+    }
+  }
+@mixin text-ellipsis($line: 1) {
+    @if $line == 1 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    } @else {
+      display: -webkit-box;
+      -webkit-line-clamp: $line;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  @keyframes neon-pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+
+$font-main: 'Rajdhani', sans-serif;
+$font-heading: 'Orbitron', sans-serif;
+$font-monospace: 'Courier New', monospace;
+$base-font-size: 16px;
+
+$glow-blue: 0 0 10px rgba($color-neon-blue, 0.5);
+$glow-pink: 0 0 10px rgba($color-neon-pink, 0.5);
+$glow-purple: 0 0 10px rgba($color-neon-purple, 0.5);
+$text-glow: 0 0 8px currentColor;
+
+$border-radius: 4px;
+$spacing-unit: 1rem;
+$max-content-width: 1200px;
+$input-height: 48px;
+
+$transition-duration: 0.3s;
+$transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+@mixin glitch-effect($color: $color-neon-blue, $color2: $color-neon-pink, $color3: $color-neon-purple) {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-dark-bg;
+  }
+
+  &::before {
+    left: 2px;
+    text-shadow: -2px 0 $color2;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+
+  &::after {
+    left: -2px;
+    text-shadow: -2px 0 $color3;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  }
+}
+
+@mixin neon-text($color, $intensity: 0.8) {
+  color: $color;
+  text-shadow: 0 0 5px rgba($color, $intensity);
+
+  &:hover {
+    text-shadow: 0 0 10px rgba($color, $intensity + 0.2);
+  }
+}
+
+@mixin scanline($color: rgba($color-neon-blue, 0.05), $speed: 4s) {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      $color 50%,
+      transparent 100%
+    );
+    background-size: 100% 8px;
+    animation: scan $speed linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@mixin pulse($color: $color-neon-blue, $size: 10px) {
+  animation: pulse-anim 2s infinite;
+
+  &:hover {
+    animation: pulse-anim 1s infinite;
+  }
+
+  @keyframes pulse-anim {
+    0% { box-shadow: 0 0 0 0 rgba($color, 0.7); }
+    70% { box-shadow: 0 0 0 $size rgba($color, 0); }
+    100% { box-shadow: 0 0 0 0 rgba($color, 0); }
+  }
+}
+
+@mixin gradient-text($gradient: linear-gradient(135deg, $color-neon-blue, $color-neon-pink)) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip: rect(32px, 9999px, 78px, 0); }
+  20% { clip: rect(8px, 9999px, 32px, 0); }
+  40% { clip: rect(64px, 9999px, 99px, 0); }
+  60% { clip: rect(12px, 9999px, 45px, 0); }
+  80% { clip: rect(70px, 9999px, 92px, 0); }
+  100% { clip: rect(23px, 9999px, 85px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(95px, 9999px, 15px, 0); }
+  20% { clip: rect(3px, 9999px, 99px, 0); }
+  40% { clip: rect(55px, 9999px, 72px, 0); }
+  60% { clip: rect(28px, 9999px, 60px, 0); }
+  80% { clip: rect(88px, 9999px, 12px, 0); }
+  100% { clip: rect(40px, 9999px, 33px, 0); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes shine {
+  0% { transform: rotate(30deg) translate(-30%, -30%); }
+  100% { transform: rotate(30deg) translate(30%, 30%); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.5; }
+}
+
+.neon-text {
+  @include neon-text($color-neon-blue);
+
+  &--pink {
+    @include neon-text($color-neon-pink);
+  }
+
+  &--purple {
+    @include neon-text($color-neon-purple);
+  }
+}
+
+.glow {
+  &-blue { box-shadow: $glow-blue; }
+  &-pink { box-shadow: $glow-pink; }
+  &-purple { box-shadow: $glow-purple; }
+}
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.text-uppercase { text-transform: uppercase; }
+
+.flex {
+  display: flex;
+
+  &-row { flex-direction: row; }
+  &-col { flex-direction: column; }
+  &-center { align-items: center; justify-content: center; }
+}
+
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px
+);
+
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}";
+  }
+}
