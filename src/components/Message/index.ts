@@ -1,6 +1,8 @@
 import Block from "../../services/Block";
 import { messageTemplate } from "./messageTemplate";
 
+export { messageTemplate };
+
 interface MessageProps {
   type: "sent" | "received";
   content: string;

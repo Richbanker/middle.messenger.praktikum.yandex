@@ -3,6 +3,8 @@ import { iconTemplate } from "../icon/iconTebplate";
 import { messageInputTemplate } from "./messageInputTemplate";
 import Handlebars from "handlebars";
 
+Handlebars.registerPartial("messageInput", messageInputTemplate);
+
 interface MessageInputProps {
   placeholder?: string;
   onSend?: (message: string) => void;
