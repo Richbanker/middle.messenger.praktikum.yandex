@@ -56,7 +56,9 @@ export interface UserSearchResult {
 }
 
 export class ChatAPI {
-  private baseUrl = "/api/v2";
+  private baseUrl = process.env.NODE_ENV === "production" 
+    ? "https://ya-praktikum.tech/api/v2" 
+    : "/api/v2";
 
   async login(data: LoginRequest): Promise<LoginResponse> {
       const response = await httpClient.post<LoginResponse>(

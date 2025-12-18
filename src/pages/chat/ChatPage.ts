@@ -115,7 +115,15 @@ export class ChatPage extends Block {
       }
 
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    } catch {
+    } catch (error: any) {
+      if (error?.status === 401) {
+        if ((window as any).router) {
+          (window as any).router.navigate("/");
+        } else {
+          window.location.href = "/";
+        }
+        return;
+      }
       this.initializeChatItems();
       this.initializeMessageInput();
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
@@ -441,7 +449,11 @@ export class ChatPage extends Block {
     } catch {
       void 0;
     } finally {
-      (window as any).router.navigate("/");
+      if ((window as any).router) {
+        (window as any).router.navigate("/");
+      } else {
+        window.location.href = "/";
+      }
     }
   }
 
@@ -674,13 +686,30 @@ export class ChatPage extends Block {
     }
 
     try {
-      await chatAPI.createChat(title.trim());
-
-      this.closeCreateChatModal();
-
-      await this.loadChatsFromAPI();
-    } catch {
-      void 0;
+      const result = await chatAPI.createChat(title.trim());
+      
+      if (result && result.id) {
+        this.closeCreateChatModal();
+        form.reset();
+        
+        await this.loadChatsFromAPI();
+        
+        const newChatId = result.id.toString();
+        this.activeChatId = newChatId;
+        await this.loadMessagesForChat(newChatId);
+        await this.connectToWebSocket(newChatId);
+        
+        this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+      }
+    } catch (error: any) {
+      if (error?.status === 401) {
+        (window as any).router?.navigate("/");
+      } else if (error?.status === 400) {
+        const errorElement = form.querySelector(".input-error");
+        if (errorElement instanceof HTMLElement) {
+          errorElement.textContent = "Некорректное название чата";
+        }
+      }
     }
   }
 
