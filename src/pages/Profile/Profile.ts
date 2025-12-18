@@ -54,7 +54,6 @@ export class Profile extends View {
           avatar: this.profileData.avatar || '',
         };
 
-        console.log('Profile form data:', profileData);
 
         localStorage.setItem('profile_email', profileData.email);
         localStorage.setItem('profile_login', profileData.login);

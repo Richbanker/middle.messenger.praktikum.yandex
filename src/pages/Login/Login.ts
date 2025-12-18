@@ -33,7 +33,6 @@ export class Login extends View {
             formData[input.name] = input.value;
           });
           
-          console.log('Login form data:', formData);
           
           const loginInput = form.querySelector<HTMLInputElement>('input[name="login"]');
           const login = loginInput?.value.trim() || 'user';
