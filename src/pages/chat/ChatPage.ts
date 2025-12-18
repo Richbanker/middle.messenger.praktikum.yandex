@@ -449,11 +449,23 @@ export class ChatPage extends Block {
       return;
     }
 
+    if (target.closest('[data-action="removeSelectedUser"]')) {
+      const userIndex = target.getAttribute("data-user-index");
+      if (userIndex !== null) {
+        const index = parseInt(userIndex, 10);
+        if (!isNaN(index) && index >= 0 && index < this.selectedUsers.length) {
+          this.selectedUsers.splice(index, 1);
+          this.updateSelectedUsersList();
+        }
+      }
+      return;
+    }
+
     if (target.classList.contains("send-button")) {
       const messageInput = target.parentElement?.querySelector(
         'input[name="message"]'
-      ) as HTMLInputElement;
-      if (messageInput && messageInput.value.trim()) {
+      );
+      if (messageInput instanceof HTMLInputElement && messageInput.value.trim()) {
         this.handleMessageSend(messageInput.value.trim());
         messageInput.value = "";
       }
@@ -486,13 +498,16 @@ export class ChatPage extends Block {
 
   private handleSubmit(e: Event) {
     e.preventDefault();
-    const target = e.target as HTMLFormElement;
+    if (!(e.target instanceof HTMLFormElement)) {
+      return;
+    }
+    const target = e.target;
 
     if (target.classList.contains("message-form")) {
       const messageInput = target.querySelector(
         'input[name="message"]'
-      ) as HTMLInputElement;
-      if (messageInput) {
+      );
+      if (messageInput instanceof HTMLInputElement) {
         this.handleMessageSend(messageInput.value);
         messageInput.value = "";
       }
@@ -663,7 +678,7 @@ export class ChatPage extends Block {
 
   private handleKeypress(event: KeyboardEvent) {
     if (event.key === "Enter" && event.target instanceof HTMLInputElement) {
-      const input = event.target as HTMLInputElement;
+      const input = event.target;
       if (input.name === "message") {
         if (event.shiftKey) {
           return;
@@ -945,16 +960,16 @@ export class ChatPage extends Block {
 
   private updateParticipantsList(participants: any[]) {
     const participantsList = document.getElementById("participantsList");
-    if (participantsList) {
+    if (participantsList instanceof HTMLElement) {
       participantsList.innerHTML = participants
         .map(
           (participant) => `
         <div class="participant-item">
           <div class="participant-info">
-            <span class="participant-name">${participant.first_name} ${participant.second_name}</span>
-            <span class="participant-login">@${participant.login}</span>
+            <span class="participant-name">${this.escapeHtml(participant.first_name || "")} ${this.escapeHtml(participant.second_name || "")}</span>
+            <span class="participant-login">@${this.escapeHtml(participant.login || "")}</span>
           </div>
-          <button class="btn btn--danger" data-action="removeUser" data-user-id="${participant.id}">
+          <button class="btn btn--danger" data-action="removeUser" data-user-id="${this.escapeHtml(String(participant.id || ""))}">
             Удалить
           </button>
         </div>
@@ -966,7 +981,10 @@ export class ChatPage extends Block {
 
   private async handleSearchUser(e: Event) {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    if (!(e.target instanceof HTMLFormElement)) {
+      return;
+    }
+    const form = e.target;
     const formData = new FormData(form);
     const login = formData.get("userLogin") as string;
 
@@ -984,16 +1002,16 @@ export class ChatPage extends Block {
 
   private updateSearchResults(users: any[]) {
     const searchResults = document.getElementById("searchResults");
-    if (searchResults) {
+    if (searchResults instanceof HTMLElement) {
       searchResults.innerHTML = users
         .map(
           (user) => `
         <div class="search-result-item">
           <div class="user-info">
-            <span class="user-name">${user.first_name} ${user.second_name}</span>
-            <span class="user-login">@${user.login}</span>
+            <span class="user-name">${this.escapeHtml(user.first_name || "")} ${this.escapeHtml(user.second_name || "")}</span>
+            <span class="user-login">@${this.escapeHtml(user.login || "")}</span>
           </div>
-          <button class="btn btn--secondary" data-action="selectUser" data-user-id="${user.id}">
+          <button class="btn btn--secondary" data-action="selectUser" data-user-id="${this.escapeHtml(String(user.id || ""))}">
             <svg class="icon icon--plus" viewBox="0 0 24 24" width="16" height="16">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
             </svg>
@@ -1036,14 +1054,14 @@ export class ChatPage extends Block {
 
   private updateSelectedUsersList() {
     const selectedUsersList = document.getElementById("selectedUsersList");
-    if (selectedUsersList) {
+    if (selectedUsersList instanceof HTMLElement) {
       selectedUsersList.innerHTML = this.selectedUsers
         .map(
-          (user) => `
-        <div class="selected-user-item">
-          <span>${user.name} (${user.login})</span>
-          <input type="hidden" name="selectedUsers" value="${user.id}">
-          <button type="button" class="btn btn--danger" onclick="this.parentElement.remove(); this.selectedUsers = this.selectedUsers.filter(u => u.id !== '${user.id}');">
+          (user, index) => `
+        <div class="selected-user-item" data-user-index="${index}">
+          <span>${this.escapeHtml(user.name || "")} (${this.escapeHtml(user.login || "")})</span>
+          <input type="hidden" name="selectedUsers" value="${this.escapeHtml(String(user.id || ""))}">
+          <button type="button" class="btn btn--danger" data-action="removeSelectedUser" data-user-index="${index}">
             <svg class="icon icon--close" viewBox="0 0 24 24" width="16" height="16">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
             </svg>
@@ -1053,6 +1071,23 @@ export class ChatPage extends Block {
       `
         )
         .join("");
+      
+      selectedUsersList.querySelectorAll('[data-action="removeSelectedUser"]').forEach((button) => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = e.currentTarget;
+          if (target instanceof HTMLElement) {
+            const userIndex = target.getAttribute('data-user-index');
+            if (userIndex !== null) {
+              const index = parseInt(userIndex, 10);
+              if (!isNaN(index) && index >= 0 && index < this.selectedUsers.length) {
+                this.selectedUsers.splice(index, 1);
+                this.updateSelectedUsersList();
+              }
+            }
+          }
+        });
+      });
     }
   }
 
@@ -1065,7 +1100,10 @@ export class ChatPage extends Block {
 
   private async handleAddUser(e: Event) {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    if (!(e.target instanceof HTMLFormElement)) {
+      return;
+    }
+    const form = e.target;
     const formData = new FormData(form);
     const userIds = formData.getAll("selectedUsers") as string[];
 

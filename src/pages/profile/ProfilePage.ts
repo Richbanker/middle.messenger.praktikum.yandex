@@ -61,8 +61,8 @@ export class ProfilePage extends Block {
   private setupAvatarUpload() {
     const fileInput = this.element?.querySelector(
       "#avatarUpload"
-    ) as HTMLInputElement;
-    if (fileInput) {
+    );
+    if (fileInput instanceof HTMLInputElement) {
       fileInput.removeEventListener("change", this.avatarUploadHandler);
       fileInput.addEventListener("change", this.avatarUploadHandler);
     }
@@ -87,7 +87,10 @@ export class ProfilePage extends Block {
   }
   private handleProfileSubmit(e: Event) {
     e.preventDefault();
-    const target = e.target as HTMLFormElement;
+    if (!(e.target instanceof HTMLFormElement)) {
+      return;
+    }
+    const target = e.target;
 
     if (target.id === "profileForm") {
       this.handleProfileUpdate(target);
@@ -184,8 +187,8 @@ export class ProfilePage extends Block {
 
     if (target.closest('[data-action="submitProfile"]')) {
       e.preventDefault();
-      const form = document.getElementById("profileForm") as HTMLFormElement;
-      if (form) {
+      const form = document.getElementById("profileForm");
+      if (form instanceof HTMLFormElement) {
         this.handleProfileUpdate(form);
       }
     } else if (target.closest('[data-action="openPasswordModal"]')) {
@@ -202,8 +205,8 @@ export class ProfilePage extends Block {
     ) {
       const fileInput = this.element?.querySelector(
         "#avatarUpload"
-      ) as HTMLInputElement;
-      if (fileInput) {
+      );
+      if (fileInput instanceof HTMLInputElement) {
         fileInput.click();
       }
     } else if (target.id === "passwordModal") {
@@ -212,16 +215,16 @@ export class ProfilePage extends Block {
   }
 
   private openPasswordModal() {
-    const modal = this.element?.querySelector("#passwordModal") as HTMLElement;
-    if (modal) {
+    const modal = this.element?.querySelector("#passwordModal");
+    if (modal instanceof HTMLElement) {
       modal.classList.add("show");
       document.body.style.overflow = "hidden";
     }
   }
 
   private closePasswordModal() {
-    const modal = this.element?.querySelector("#passwordModal") as HTMLElement;
-    if (modal) {
+    const modal = this.element?.querySelector("#passwordModal");
+    if (modal instanceof HTMLElement) {
       modal.classList.remove("show");
       document.body.style.overflow = "auto";
     }
@@ -232,7 +235,10 @@ export class ProfilePage extends Block {
   }
 
   private async handleAvatarUpload(e: Event) {
-    const target = e.target as HTMLInputElement;
+    if (!(e.target instanceof HTMLInputElement)) {
+      return;
+    }
+    const target = e.target;
     const file = target.files?.[0];
 
     if (!file) {
@@ -362,8 +368,8 @@ export class ProfilePage extends Block {
   }
 
   private showUploadProgress() {
-    const avatarWrapper = this.element?.querySelector('.avatar-wrapper') as HTMLElement;
-    if (avatarWrapper) {
+    const avatarWrapper = this.element?.querySelector('.avatar-wrapper');
+    if (avatarWrapper instanceof HTMLElement) {
       const loader = document.createElement('div');
       loader.className = 'avatar-upload-loader';
       loader.innerHTML = `
@@ -376,8 +382,8 @@ export class ProfilePage extends Block {
   }
 
   private hideUploadProgress() {
-    const avatarWrapper = this.element?.querySelector('.avatar-wrapper') as HTMLElement;
-    if (avatarWrapper) {
+    const avatarWrapper = this.element?.querySelector('.avatar-wrapper');
+    if (avatarWrapper instanceof HTMLElement) {
       const loader = avatarWrapper.querySelector('.avatar-upload-loader');
       if (loader) {
         loader.remove();
@@ -454,8 +460,8 @@ export class ProfilePage extends Block {
     Object.entries(fieldErrors).forEach(([fieldName, errors]) => {
       const field = this.element?.querySelector(
         `[name="${fieldName}"]`
-      ) as HTMLElement;
-      if (field) {
+      );
+      if (field instanceof HTMLElement) {
         const errorElement = document.createElement("div");
         errorElement.className = "validation-error";
         errorElement.textContent = errors[0];
