@@ -1,12 +1,11 @@
 import Block from "../../services/Block";
 import ConversationHeader from "../../components/conversationHeader";
-import MessageInput from "../../components/messageInput";
+import MessageInput from "../../components/MessageInput";
 import { chatTemplate } from "./chatTemplate";
 import Handlebars from "handlebars";
 import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate";
-import { messageTemplate } from "../../components/message/messageTemplate";
-import { messageInputTemplate } from "../../components/messageInput/messageInputTemplate";
-import { chatItemTemplate } from "../../components/chatItem/chatItemTemplate";
+import { messageTemplate } from "../../components/Message/messageTemplate";
+import { chatItemTemplate } from "../../components/ChatItem/chatItemTemplate";
 import { iconTemplate } from "../../components/icon/iconTebplate";
 import { Validator } from "../../services/Validator";
 import { chatAPI } from "../../services/api";
@@ -14,7 +13,6 @@ import { webSocketService, WSMessage } from "../../services/WebSocketService";
 
 Handlebars.registerPartial("conversationHeader", conversationHeaderTemplate);
 Handlebars.registerPartial("message", messageTemplate);
-Handlebars.registerPartial("messageInput", messageInputTemplate);
 Handlebars.registerPartial("chatItem", chatItemTemplate);
 Handlebars.registerPartial("icon", iconTemplate);
 
