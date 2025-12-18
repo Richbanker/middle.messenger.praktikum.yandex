@@ -107,5 +107,7 @@ middle.messenger.praktikum.yandex/
 ### Деплой
 Проект готов к деплою на Netlify. Файл `public/_redirects` настроен для корректной работы SPA.
 
+**Демо**: [https://your-project-name.netlify.app](https://your-project-name.netlify.app)
+
 ---
 **Модуль**: Middle Frontend Developer (Яндекс.Практикум)
