@@ -5,7 +5,7 @@ import { chatTemplate } from "./chatTemplate";
 import Handlebars from "handlebars";
 import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate";
 import { messageTemplate } from "../../components/Message";
-import { chatItemTemplate } from "../../components/ChatItem";
+import { chatItemTemplate } from "../../components/ChatItem/chatItemTemplate";
 import { iconTemplate } from "../../components/icon/iconTebplate";
 import { Validator } from "../../services/Validator";
 import { chatAPI } from "../../services/api";
