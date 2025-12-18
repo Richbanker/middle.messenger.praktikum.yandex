@@ -138,6 +138,14 @@ export class ChatPage extends Block {
       return;
     }
 
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    if (!cleanChatId) {
+      this.messages = [];
+      this.updateConversation();
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
+      return;
+    }
+
     if (this.chats.length === 0) {
       this.messages = [];
       this.updateConversation();
@@ -146,7 +154,7 @@ export class ChatPage extends Block {
     }
 
     const chatExists = this.chats.some(
-      (chat) => chat.id === chatId || chat.id === chatId.toString()
+      (chat) => chat.id === cleanChatId || chat.id === cleanChatId.toString()
     );
     
     if (!chatExists) {
@@ -157,7 +165,7 @@ export class ChatPage extends Block {
     }
 
     try {
-      const apiMessages = await chatAPI.getChatMessages(chatId);
+      const apiMessages = await chatAPI.getChatMessages(cleanChatId);
       
       if (!apiMessages || apiMessages.length === 0) {
         this.messages = [];
@@ -176,7 +184,7 @@ export class ChatPage extends Block {
           hour: "2-digit",
           minute: "2-digit",
         }),
-        chatId: chatId,
+        chatId: cleanChatId,
           senderName: message.user_id === currentUserId ? undefined : "Пользователь",
         }))
         .reverse();
@@ -193,7 +201,7 @@ export class ChatPage extends Block {
       }
       
       if (chatExists) {
-      this.messages = this.getMockMessages(chatId);
+      this.messages = this.getMockMessages(cleanChatId);
       this.updateConversation();
         this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
         this.scrollToBottom();
@@ -215,9 +223,18 @@ export class ChatPage extends Block {
   }
 
   private async connectToWebSocket(chatId: string): Promise<void> {
+    if (!chatId || chatId.trim() === "") {
+      return;
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    if (!cleanChatId) {
+      return;
+    }
+
     try {
       await webSocketService.connect({
-        chatId,
+        chatId: cleanChatId,
         onMessage: (message) => this.handleWebSocketMessage(message),
         onMessages: (messages) => this.handleWebSocketMessages(messages),
         onConnect: () => "WebSocket connected to chat",
@@ -490,18 +507,27 @@ export class ChatPage extends Block {
 
   private async handleChatSelect(chatId: string, e: Event) {
     e.preventDefault();
-    `Выбран чат: ${chatId}`;
-
-    if (this.activeChatId === chatId) {
+    if (!chatId || chatId.trim() === "") {
       return;
     }
 
-    if (this.activeChatId && this.activeChatId !== chatId) {
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    if (!cleanChatId) {
+      return;
+    }
+
+    `Выбран чат: ${cleanChatId}`;
+
+    if (this.activeChatId === cleanChatId) {
+      return;
+    }
+
+    if (this.activeChatId && this.activeChatId !== cleanChatId) {
       webSocketService.disconnect();
       await new Promise(resolve => setTimeout(resolve, 200));
     }
 
-    this.activeChatId = chatId;
+    this.activeChatId = cleanChatId;
     
     this.messages = [];
 
@@ -513,9 +539,9 @@ export class ChatPage extends Block {
       chatConversation.classList.remove("mobile-hidden");
     }
 
-    await this.loadMessagesForChat(chatId);
+    await this.loadMessagesForChat(cleanChatId);
 
-    await this.connectToWebSocket(chatId);
+    await this.connectToWebSocket(cleanChatId);
 
     this.updateConversation();
 
@@ -523,12 +549,17 @@ export class ChatPage extends Block {
   }
 
   private async handleChatDelete(chatId: string) {
-    `Удаляем чат: ${chatId}`;
+    if (!chatId || chatId.trim() === "") {
+      return;
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    `Удаляем чат: ${cleanChatId}`;
 
     try {
-      await chatAPI.deleteChat(chatId);
+      await chatAPI.deleteChat(cleanChatId);
 
-      if (this.activeChatId === chatId) {
+      if (this.activeChatId === cleanChatId) {
         webSocketService.disconnect();
         this.activeChatId = null;
         this.messages = [];

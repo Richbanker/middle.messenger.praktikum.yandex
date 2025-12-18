@@ -137,9 +137,14 @@ export class ChatAPI {
       return [];
     }
 
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    if (!cleanChatId) {
+      return [];
+    }
+
     try {
       const url = httpClient.buildUrl(
-        `${this.baseUrl}/chats/${chatId}/messages`,
+        `${this.baseUrl}/chats/${cleanChatId}/messages`,
         {
           offset,
           limit,
@@ -170,14 +175,22 @@ export class ChatAPI {
   }
 
   async sendMessage(chatId: string, content: string): Promise<void> {
+    if (!chatId || chatId.trim() === "") {
+      throw {
+        message: "Chat ID is required",
+        status: 400,
+      };
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
     const response = await httpClient.post(
-        `${this.baseUrl}/chats/${chatId}/messages`,
-        { content },
-        {
+      `${this.baseUrl}/chats/${cleanChatId}/messages`,
+      { content },
+      {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        }
-      );
+      }
+    );
     if (response.status >= 200 && response.status < 300) return;
     throw {
       message: "Failed to send message",
@@ -205,8 +218,13 @@ export class ChatAPI {
   }
 
   async deleteChat(chatId: string): Promise<void> {
+    if (!chatId || chatId.trim() === "") {
+      return;
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
     try {
-      const response = await httpClient.delete(`${this.baseUrl}/chats/${chatId}`, undefined, {
+      const response = await httpClient.delete(`${this.baseUrl}/chats/${cleanChatId}`, undefined, {
         credentials: "include",
       });
       
@@ -232,21 +250,37 @@ export class ChatAPI {
   }
 
   async getCurrentUser(): Promise<LoginResponse["user"]> {
+    try {
       const response = await httpClient.get<LoginResponse["user"]>(
         `${this.baseUrl}/auth/user`,
-      { credentials: "include" }
+        { credentials: "include" }
       );
 
-    if (response.status === 200) {
-      return response.data;
-    }
+      if (response.status === 200) {
+        return response.data;
+      }
 
-    throw {
-      message: `Failed to fetch current user`,
-      status: response.status,
-      statusText: response.statusText,
-      data: response.data,
-    };
+      if (response.status === 401) {
+        throw {
+          message: `User not authenticated`,
+          status: 401,
+          statusText: response.statusText,
+          data: response.data,
+        };
+      }
+
+      throw {
+        message: `Failed to fetch current user`,
+        status: response.status,
+        statusText: response.statusText,
+        data: response.data,
+      };
+    } catch (error: any) {
+      if (error?.status === 401) {
+        throw error;
+      }
+      throw error;
+    }
   }
 
   async updateProfile(data: Partial<RegistrationRequest>): Promise<void> {
@@ -342,11 +376,19 @@ export class ChatAPI {
   }
 
   async getWebSocketToken(chatId: string): Promise<{ token: string }> {
-      const response = await httpClient.post<{ token: string }>(
-      `${this.baseUrl}/chats/token/${chatId}`,
+    if (!chatId || chatId.trim() === "") {
+      throw {
+        message: "Chat ID is required",
+        status: 400,
+      };
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
+    const response = await httpClient.post<{ token: string }>(
+      `${this.baseUrl}/chats/token/${cleanChatId}`,
       undefined,
       { credentials: "include" }
-      );
+    );
 
     if (response.status === 200) return response.data;
     throw {
@@ -424,9 +466,14 @@ export class ChatAPI {
   }
 
   async getChatUsers(chatId: string): Promise<UserSearchResult[]> {
+    if (!chatId || chatId.trim() === "") {
+      return [];
+    }
+
+    const cleanChatId = chatId.trim().replace(/\/+$/, "");
     try {
       const response = await httpClient.get<UserSearchResult[]>(
-        `${this.baseUrl}/chats/${chatId}/users`,
+        `${this.baseUrl}/chats/${cleanChatId}/users`,
         { credentials: "include" }
       );
       
