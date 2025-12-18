@@ -35,7 +35,6 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1",
     "uuid": "^11.1.0",
     "vite-plugin-handlebars": "^2.0.0"
   }
