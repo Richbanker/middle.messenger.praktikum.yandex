@@ -247,7 +247,7 @@ export class ChatPage extends Block {
           this.showError("Ошибка WebSocket соединения. Проверьте подключение к интернету.");
         },
       });
-    } catch (error: any) {
+    } catch {
       this.showError("Не удалось подключиться к чату. Загрузка сообщений через HTTP...");
       await this.loadMessagesForChat(chatId);
     }
@@ -260,7 +260,7 @@ export class ChatPage extends Block {
   }
 
   private showError(message: string): void {
-    const errorElement = this.element?.querySelector('.error-message');
+    const errorElement = this.element?.querySelector('.error-message') as HTMLElement;
     if (errorElement) {
       errorElement.textContent = message;
       errorElement.style.display = 'block';

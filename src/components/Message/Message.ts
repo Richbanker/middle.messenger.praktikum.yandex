@@ -26,7 +26,7 @@ export class Message extends Block<MessageProps> {
     return this.compile(
       () => `
         <div class="message ${isOwn ? 'message_own' : ''}">
-          <div class="message__content">${this.escapeHtml(message.content)}</div>
+          <div class="message__content">${this.escapeHtml(message.content || '')}</div>
           <div class="message__time">${time}</div>
         </div>
       `,
