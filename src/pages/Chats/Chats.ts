@@ -50,7 +50,7 @@ export class Chats extends View {
       selectedChatIds: state.chats.selectedChatIds,
     });
     this.messageInput = new MessageInput({
-      onSubmit: () => {
+      onSend: () => {
         this.isSelectionMode = false;
         store.patchChats({ selectAll: false });
         this.updateFromStore();
