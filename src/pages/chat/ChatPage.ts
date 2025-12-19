@@ -179,7 +179,7 @@ export class ChatPage extends Block {
         .map((message) => ({
         id: message.id,
           type: (message.user_id === currentUserId ? "sent" : "received") as "sent" | "received",
-        content: message.content,
+        content: this.escapeHtml(message.content),
         time: new Date(message.time).toLocaleTimeString("ru-RU", {
           hour: "2-digit",
           minute: "2-digit",
@@ -237,11 +237,18 @@ export class ChatPage extends Block {
         chatId: cleanChatId,
         onMessage: (message) => this.handleWebSocketMessage(message),
         onMessages: (messages) => this.handleWebSocketMessages(messages),
-        onConnect: () => "WebSocket connected to chat",
-        onDisconnect: () => "WebSocket disconnected from chat",
-        onError: () => "WebSocket error",
+        onConnect: () => {
+          void 0;
+        },
+        onDisconnect: () => {
+          this.showError("Соединение с сервером потеряно. Попытка переподключения...");
+        },
+        onError: (error: Event) => {
+          this.showError("Ошибка WebSocket соединения. Проверьте подключение к интернету.");
+        },
       });
-    } catch {
+    } catch (error: any) {
+      this.showError("Не удалось подключиться к чату. Загрузка сообщений через HTTP...");
       await this.loadMessagesForChat(chatId);
     }
   }
@@ -250,6 +257,21 @@ export class ChatPage extends Block {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
+  }
+
+  private showError(message: string): void {
+    const errorElement = this.element?.querySelector('.error-message');
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      setTimeout(() => {
+        if (errorElement) {
+          errorElement.style.display = 'none';
+        }
+      }, 5000);
+    } else {
+      alert(message);
+    }
   }
 
   private async handleWebSocketMessage(wsMessage: WSMessage): Promise<void> {
@@ -638,7 +660,7 @@ export class ChatPage extends Block {
             const newMessage: ChatMessage = {
               id: Date.now().toString(),
               type: "sent",
-              content: message,
+              content: this.escapeHtml(message),
               time: new Date().toLocaleTimeString("ru-RU", {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -650,15 +672,17 @@ export class ChatPage extends Block {
             this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
             this.scrollToBottom();
           } else {
+            this.showError("Не удалось отправить сообщение. Попробуйте еще раз.");
             throw error;
           }
         }
       }
-    } catch {
+    } catch (error: any) {
+      this.showError("Ошибка отправки сообщения. Проверьте подключение.");
       const newMessage: ChatMessage = {
         id: Date.now().toString(),
         type: "sent",
-        content: message,
+        content: this.escapeHtml(message),
         time: new Date().toLocaleTimeString("ru-RU", {
           hour: "2-digit",
           minute: "2-digit",

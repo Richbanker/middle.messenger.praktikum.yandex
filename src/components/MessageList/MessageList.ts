@@ -8,6 +8,12 @@ interface MessageListProps extends Props {
 }
 
 export class MessageList extends Block<MessageListProps> {
+  private escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   protected render(): DocumentFragment {
     const { messages, selectAll, selectedChatIds } = this.props;
 
@@ -61,7 +67,7 @@ export class MessageList extends Block<MessageListProps> {
 
             return `
               <div class="message ${message.isOwn ? 'message_own' : ''}">
-                <div class="message__content">${message.text}</div>
+                <div class="message__content">${this.escapeHtml(message.text)}</div>
                 <div class="message__time">${time}</div>
               </div>
             `;
