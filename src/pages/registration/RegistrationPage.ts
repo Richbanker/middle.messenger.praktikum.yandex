@@ -79,7 +79,12 @@ export class RegistrationPage extends Block {
 
       const httpErr = error as HttpError;
       if (httpErr?.message) {
-        this.showApiError(httpErr.message);
+        const errorMessage = httpErr.message.toLowerCase();
+        if (errorMessage.includes('cookie') && errorMessage.includes('not valid')) {
+          this.showApiError("Ошибка аутентификации. Пожалуйста, очистите cookies и попробуйте снова.");
+        } else {
+          this.showApiError(httpErr.message);
+        }
       } else {
         this.showApiError("Не удалось создать аккаунт. Повторите попытку.");
       }
