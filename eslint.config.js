@@ -59,6 +59,7 @@ export default [
       '@typescript-eslint': tseslint,
     },
     rules: {
+      'no-undef': 'off',
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
@@ -67,12 +68,9 @@ export default [
       'no-useless-catch': 'off',
       'no-unreachable': 'warn',
       'no-async-promise-executor': 'off',
-
-    
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
-
       'indent': 'off', 
       'quotes': 'off',
       'semi': ['warn', 'always'],
