@@ -132,9 +132,6 @@ export class Router {
       return;
     }
 
-    const publicRoutes = [Routes.SignIn, Routes.SignUp, Routes.Home];
-    const isPublic = publicRoutes.includes(path as Routes);
-
     const protectedRoutes = [Routes.Messenger, Routes.Settings];
     const isProtected = protectedRoutes.some((route) => path.startsWith(route));
 
