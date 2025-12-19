@@ -132,10 +132,16 @@ export class Router {
       return;
     }
 
+    const publicRoutes = [Routes.SignIn, Routes.SignUp, Routes.Home];
+    const isPublic = publicRoutes.includes(path as Routes);
+
     const protectedRoutes = [Routes.Messenger, Routes.Settings];
     const isProtected = protectedRoutes.some((route) => path.startsWith(route));
 
-    const isAuthenticated = await this.checkAuthentication();
+    let isAuthenticated = false;
+    if (isProtected || (path === Routes.SignIn || path === Routes.SignUp)) {
+      isAuthenticated = await this.checkAuthentication();
+    }
 
     if (isProtected && !isAuthenticated) {
       this.navigate(Routes.SignIn);
