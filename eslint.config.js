@@ -1,69 +1,37 @@
 import js from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
+import tseslint from 'typescript-eslint';
+import globals from 'globals';
 
-export default [
-  js.configs.recommended,
+export default tseslint.config(
   {
-    files: ['src/**/*.ts', 'src/**/*.js'],
+    ignores: [
+      'dist/',
+      'node_modules/',
+      '*.config.js',
+      'vite.config.ts',
+      'vite.config.js',
+      'server.ts',
+    ],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.ts', '**/*.js'],
     languageOptions: {
-      parser: tsparser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       globals: {
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
-        alert: 'readonly',
-        setTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly',
-        localStorage: 'readonly',
-        requestAnimationFrame: 'readonly',
-        HTMLElement: 'readonly',
-        HTMLInputElement: 'readonly',
-        HTMLFormElement: 'readonly',
-        HTMLImageElement: 'readonly',
-        HTMLButtonElement: 'readonly',
-        HTMLTextAreaElement: 'readonly',
-        Event: 'readonly',
-        EventTarget: 'readonly',
-        EventListener: 'readonly',
-        KeyboardEvent: 'readonly',
-        MessageEvent: 'readonly',
-        CloseEvent: 'readonly',
-        PopStateEvent: 'readonly',
-        ProgressEvent: 'readonly',
-        FormData: 'readonly',
-        File: 'readonly',
-        FileReader: 'readonly',
-        Image: 'readonly',
-        XMLHttpRequest: 'readonly',
-        XMLHttpRequestBodyInit: 'readonly',
-        WebSocket: 'readonly',
-        URL: 'readonly',
-        URLSearchParams: 'readonly',
-        Node: 'readonly',
-        Document: 'readonly',
-        DocumentFragment: 'readonly',
-        Window: 'readonly',
-        structuredClone: 'readonly',
-        crypto: 'readonly',
-        process: 'readonly',
-        Block: 'readonly',
+        ...globals.browser,
+        ...globals.es2021,
+        Handlebars: 'readonly',
       },
-    },
-    plugins: {
-      '@typescript-eslint': tseslint,
     },
     rules: {
       'no-undef': 'off',
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
+      'no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
-      'no-console': 'warn', 
+      'no-console': 'warn',
       'no-empty': 'warn',
       'no-useless-catch': 'off',
       'no-unreachable': 'warn',
@@ -71,15 +39,7 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-inferrable-types': 'off',
-      'indent': 'off', 
-      'quotes': 'off',
       'semi': ['warn', 'always'],
     },
-  },
-  {
-    files: ['**/*.test.ts', '**/*.spec.ts'],
-    rules: {
-      'no-console': 'off', 
-    },
-  },
-];
+  }
+);
