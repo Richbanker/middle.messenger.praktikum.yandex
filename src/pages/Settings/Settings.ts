@@ -29,7 +29,6 @@ export class Settings extends View {
         });
         
         if (isValid) {
-          console.log('Settings form data:', formData);
           alert('Пароль успешно изменен!');
           form.reset();
         }

@@ -53,7 +53,6 @@ export class MessageInput extends Block<MessageInputProps> {
       return;
     }
 
-    console.log('Message form data:', { message: text });
 
     try {
       chatsController.sendMessage(form);

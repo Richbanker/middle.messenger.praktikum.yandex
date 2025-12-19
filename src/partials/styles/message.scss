@@ -1,0 +1,87 @@
+@use '../../pages/utils.scss' as *;
+
+.message {
+  display: flex;
+  margin-bottom: 1.2rem;
+  max-width: 75%;
+  position: relative;
+
+  &-content {
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    position: relative;
+    line-height: 1.4;
+    word-break: break-word;
+    font-size: 14px;
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &-time {
+    font-size: 12px;
+    color: #9ca3af;
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    font-weight: 500;
+  }
+
+  &:hover &-time {
+    opacity: 1;
+  }
+
+  &.message--received {
+    align-self: flex-start;
+    margin-right: auto;
+
+    .message-content {
+      background: #ffffff;
+      color: #0f172a;
+    }
+  }
+
+  &.message--sent {
+    align-self: flex-end;
+    margin-left: auto;
+    flex-direction: row-reverse;
+
+    .message-content {
+      background: #2563eb;
+      border-color: #1d4ed8;
+      color: #ffffff;
+    }
+  }
+}
+
+.message-date {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+  margin: 1.5rem 0;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: #e5e7eb;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+

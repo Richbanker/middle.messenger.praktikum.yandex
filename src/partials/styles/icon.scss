@@ -1,0 +1,89 @@
+$color-dark-bg: #0a0a12;
+$color-darker-bg: #050508;
+$color-neon-blue: #0ff0fc;
+$color-neon-pink: #ff2a6d;
+$color-neon-purple: #9d00ff;
+$color-error: #ff3860;
+$color-success: #2ecc71;
+$border-radius: 4px;
+$transition-duration: 0.3s;
+
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+  transition: fill 0.3s;
+
+  &--edit {
+    color: $color-neon-blue;
+  }
+
+  &--lock {
+    color: $color-neon-purple;
+  }
+
+  &--logout {
+    color: $color-neon-pink;
+  }
+
+  &--save {
+    color: $color-success;
+  }
+
+  &--close {
+    color: $color-error;
+  }
+
+  &--plus {
+    color: $color-neon-blue;
+  }
+
+  &--trash {
+    color: $color-error;
+  }
+
+  &--settings {
+    color: $color-neon-blue;
+  }
+
+  &--send {
+    color: $color-neon-blue;
+  }
+
+  &--user {
+    color: $color-neon-purple;
+  }
+
+  &--login {
+    color: $color-neon-blue;
+  }
+
+  &--google {
+    color: #4285f4;
+  }
+
+  &--github {
+    color: #333;
+  }
+
+  &--user-add {
+    color: $color-success;
+  }
+
+  &--profile {
+    color: $color-neon-purple;
+  }
+
+  &--bug {
+    color: $color-error;
+  }
+
+  &--server {
+    color: $color-neon-pink;
+  }
+
+  &--message {
+    color: $color-neon-blue;
+  }
+}

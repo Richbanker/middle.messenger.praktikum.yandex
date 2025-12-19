@@ -7,6 +7,12 @@ interface MessageProps extends Props {
 }
 
 export class Message extends Block<MessageProps> {
+  private escapeHtml(text: string): string {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   protected render(): DocumentFragment {
     const { message, currentUserId } = this.props;
     const isOwn = message.user_id === currentUserId;
@@ -20,7 +26,7 @@ export class Message extends Block<MessageProps> {
     return this.compile(
       () => `
         <div class="message ${isOwn ? 'message_own' : ''}">
-          <div class="message__content">${message.content}</div>
+          <div class="message__content">${this.escapeHtml(message.content || '')}</div>
           <div class="message__time">${time}</div>
         </div>
       `,

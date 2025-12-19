@@ -44,7 +44,6 @@ export class Form extends Block<FormProps> {
     });
 
     if (isValid) {
-      console.log('Form data:', formData);
       if (this.props.onSubmit) {
         this.props.onSubmit(formData);
       }

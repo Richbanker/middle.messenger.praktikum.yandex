@@ -1,0 +1,102 @@
+.btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: #2563eb;
+  border: 2px solid #1d4ed8;
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  line-height: 1.5;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #1d4ed8;
+    border-color: #1e40af;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+
+  &__icon {
+    margin-left: 8px;
+    display: inline-block;
+  }
+
+  &--pulse {
+    animation: none;
+  }
+
+  &[disabled] {
+    background: #e5e7eb;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
+.btn--secondary,
+.btn--outline {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #e5e7eb;
+
+  &:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus {
+    outline-color: #6b7280;
+  }
+}
+
+.btn--danger {
+  background: #ef4444;
+  border-color: #dc2626;
+
+  &:hover {
+    background: #dc2626;
+    border-color: #b91c1c;
+  }
+}
+
+.btn--warning {
+  background: #f59e0b;
+  border-color: #d97706;
+
+  &:hover {
+    background: #d97706;
+    border-color: #b45309;
+  }
+}

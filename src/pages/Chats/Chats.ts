@@ -5,7 +5,7 @@ import { Chat } from '@/types';
 import { CreateChatModal } from '@/components/CreateChatModal';
 import { ChatList } from '@/components/ChatList';
 import { MessageList } from '@/components/MessageList';
-import { MessageInput } from '@/components/MessageInput';
+import MessageInput from '@/components/MessageInput';
 
 export class Chats extends View {
   private createChatModal: CreateChatModal;
@@ -50,7 +50,7 @@ export class Chats extends View {
       selectedChatIds: state.chats.selectedChatIds,
     });
     this.messageInput = new MessageInput({
-      onSubmit: () => {
+      onSend: () => {
         this.isSelectionMode = false;
         store.patchChats({ selectAll: false });
         this.updateFromStore();
