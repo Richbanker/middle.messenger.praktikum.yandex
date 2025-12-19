@@ -243,7 +243,7 @@ export class ChatPage extends Block {
         onDisconnect: () => {
           this.showError("Соединение с сервером потеряно. Попытка переподключения...");
         },
-        onError: (error: Event) => {
+        onError: () => {
           this.showError("Ошибка WebSocket соединения. Проверьте подключение к интернету.");
         },
       });
