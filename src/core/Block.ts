@@ -1,5 +1,5 @@
-import { EventBus } from './EventBus';
-import { nanoid } from './nanoid';
+import { EventBus } from './EventBus.js';
+import { nanoid } from './nanoid.js';
 
 export type Props = Record<string, unknown>;
 
