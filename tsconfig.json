@@ -33,7 +33,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "scripts/**/*.js"
+    "scripts/**/*.js",
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules",
