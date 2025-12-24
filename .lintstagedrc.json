@@ -1,0 +1,9 @@
+{
+  "*.{ts,js}": [
+    "cross-env ESLINT_USE_FLAT_CONFIG=false eslint --config .eslintrc.cjs --fix"
+  ],
+  "*.scss": [
+    "stylelint --fix"
+  ]
+}
+
