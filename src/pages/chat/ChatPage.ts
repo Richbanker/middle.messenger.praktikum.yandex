@@ -237,9 +237,12 @@ export class ChatPage extends Block {
         chatId: cleanChatId,
         onMessage: (message) => this.handleWebSocketMessage(message),
         onMessages: (messages) => this.handleWebSocketMessages(messages),
-        onConnect: () => "WebSocket connected to chat",
-        onDisconnect: () => "WebSocket disconnected from chat",
-        onError: () => "WebSocket error",
+        onConnect: () => {
+        },
+        onDisconnect: () => {
+        },
+        onError: () => {
+        },
       });
     } catch {
       await this.loadMessagesForChat(chatId);
@@ -391,7 +394,6 @@ export class ChatPage extends Block {
       if (chatItem) {
         const chatId = chatItem.getAttribute("data-chat-id");
         if (chatId) {
-          `Delete chat button clicked for chat: ${chatId}`;
           this.handleChatDelete(chatId);
           return;
         }
@@ -531,8 +533,6 @@ export class ChatPage extends Block {
       return;
     }
 
-    `Выбран чат: ${cleanChatId}`;
-
     if (this.activeChatId === cleanChatId) {
       return;
     }
@@ -569,7 +569,6 @@ export class ChatPage extends Block {
     }
 
     const cleanChatId = chatId.trim().replace(/\/+$/, "");
-    `Удаляем чат: ${cleanChatId}`;
 
     try {
       await chatAPI.deleteChat(cleanChatId);
@@ -996,7 +995,6 @@ export class ChatPage extends Block {
       const users = await chatAPI.searchUsers(login.trim());
       this.updateSearchResults(users);
     } catch {
-      ("Ошибка поиска пользователей");
     }
   }
 
@@ -1162,9 +1160,7 @@ export class ChatPage extends Block {
     try {
       await chatAPI.removeUsersFromChat(this.activeChatId, [parseInt(userId)]);
       this.loadChatParticipants();
-      ("Пользователь удален из чата");
     } catch {
-      ("Ошибка удаления пользователя");
     }
   }
 }

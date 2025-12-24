@@ -58,7 +58,6 @@ export class HttpClient {
     data?: unknown,
     config?: HttpRequestConfig
   ): Promise<HttpResponse<T>> {
-    "HTTP " + method + " " + url;
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const timeout = config?.timeout || this.defaultTimeout;
