@@ -56,7 +56,7 @@ export default defineConfig({
       },
       eslint: {
         lintCommand: 'eslint "./src/**/*.{ts,js}"',
-        useFlatConfig: false,
+        useFlatConfig: true,
         dev: {
           logLevel: ['error', 'warning'],
         },
