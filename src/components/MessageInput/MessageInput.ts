@@ -6,8 +6,12 @@ interface MessageInputProps extends Props {
   onSubmit?: () => void;
 }
 
-export class MessageInput extends Block<MessageInputProps> {
+class MessageInput extends Block<MessageInputProps> {
   private submitHandler: ((e: Event) => void) | null = null;
+
+  constructor(props: MessageInputProps = {}) {
+    super(props);
+  }
 
   protected componentDidMount(): void {
     this.attachHandlers();
@@ -98,3 +102,4 @@ export class MessageInput extends Block<MessageInputProps> {
   }
 }
 
+export default MessageInput;
