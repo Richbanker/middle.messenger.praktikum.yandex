@@ -12,7 +12,7 @@ interface ButtonProps {
   onClick?: (event: Event) => void;
 }
 
-class Button extends Block {
+export class Button extends Block {
   constructor(props: ButtonProps) {
     super("div", {
       ...props,
@@ -27,5 +27,3 @@ class Button extends Block {
     return this.compile(buttonTemplate, this.props);
   }
 }
-
-export default Button;

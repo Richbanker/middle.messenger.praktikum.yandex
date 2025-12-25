@@ -5,7 +5,7 @@ import { Chat } from '@/types';
 import { CreateChatModal } from '@/components/CreateChatModal';
 import { ChatList } from '@/components/ChatList';
 import { MessageList } from '@/components/MessageList';
-import MessageInput from '@/components/MessageInput/MessageInput';
+import { MessageInput } from '@/components/MessageInput/MessageInput';
 
 export class Chats extends View {
   private createChatModal: CreateChatModal;

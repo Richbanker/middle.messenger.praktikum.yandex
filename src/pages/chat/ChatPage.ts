@@ -1,6 +1,6 @@
 import Block from "../../services/Block";
 import ConversationHeader from "../../components/conversationHeader";
-import MessageInput from "../../components/MessageInput/MessageInput";
+import { MessageInput } from "../../components/MessageInput/MessageInput";
 import { chatTemplate } from "./chatTemplate";
 import Handlebars from "handlebars";
 import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate";
