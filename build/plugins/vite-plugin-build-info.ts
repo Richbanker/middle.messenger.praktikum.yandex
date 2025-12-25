@@ -1,9 +1,8 @@
 import type { Plugin } from 'vite';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { execSync } from 'child_process';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { writeFileSync } from 'fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -81,9 +80,11 @@ export function vitePluginBuildInfo(options: PluginOptions = {}): Plugin {
       }
 
       const outputPath = resolve(process.cwd(), outDir, outputFile);
+      const outputDir = dirname(outputPath);
       const buildInfoJson = JSON.stringify(buildInfo, null, 2);
 
       try {
+        mkdirSync(outputDir, { recursive: true });
         writeFileSync(outputPath, buildInfoJson, 'utf-8');
         console.log(`✓ Build info written to ${outputPath}`);
       } catch (error) {
