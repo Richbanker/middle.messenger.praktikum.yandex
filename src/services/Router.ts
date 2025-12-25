@@ -1,9 +1,9 @@
 import { render } from "./render";
 import Block from "./Block";
 import { HomePage } from "../pages/homePage/HomePage";
-import LoginPage from "../pages/Login/LoginPage";
+import LoginPage from "../pages/Login/LoginPage.ts";
 import { RegistrationPage } from "../pages/registration/RegistrationPage";
-import ProfilePage from "../pages/Profile/ProfilePage";
+import ProfilePage from "../pages/Profile/ProfilePage.ts";
 import { ErrorPage } from "../pages/errorsPage/ErrorPage";
 import { chatAPI } from "./api";
 import { Routes } from "./Routes";
