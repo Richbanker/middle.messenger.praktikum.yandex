@@ -8,11 +8,18 @@ const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
 
 const { window } = dom;
 
-Object.assign(global, {
-  window: window as any,
-  document: window.document,
-  navigator: window.navigator,
-  HTMLElement: window.HTMLElement,
-  XMLHttpRequest: window.XMLHttpRequest,
+(global as any).window = window;
+(global as any).document = window.document;
+(global as any).HTMLElement = window.HTMLElement;
+(global as any).XMLHttpRequest = window.XMLHttpRequest;
+
+if (global.navigator) {
+  delete (global as any).navigator;
+}
+
+Object.defineProperty(global, 'navigator', {
+  value: window.navigator,
+  writable: true,
+  configurable: true,
 });
 
