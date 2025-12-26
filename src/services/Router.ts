@@ -208,6 +208,14 @@ export class Router {
     }
   }
 
+  public use(path: string, component: new (props?: any) => Block, routeProps?: Record<string, unknown>): void {
+    this.routes.push({ path, component, props: routeProps });
+  }
+
+  public clearRoutes(): void {
+    this.routes = [];
+  }
+
   public async start() {
     await this.handleRoute(window.location.pathname);
   }

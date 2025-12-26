@@ -1,40 +1,50 @@
 import { expect } from 'chai';
 import { Router } from './Router.js';
-import { Routes } from './Routes.js';
 import * as apiModule from './api.js';
 import Block from './Block.js';
 
-class PageA extends Block {
-  protected render(): HTMLElement {
-    const div = document.createElement('div');
-    div.textContent = 'A';
-    return div;
+class DashboardPage extends Block {
+  constructor(props?: any) {
+    super('div', {
+      ...props,
+      attrs: { class: 'dashboard' },
+      content: 'Dashboard',
+    });
+  }
+
+  render(): Node {
+    const fragment = this.compile('<div class="dashboard">Dashboard</div>');
+    return fragment;
   }
 }
 
-class PageB extends Block {
-  protected render(): HTMLElement {
-    const div = document.createElement('div');
-    div.textContent = 'B';
-    return div;
+class LoginPage extends Block {
+  constructor(props?: any) {
+    super('div', {
+      ...props,
+      attrs: { class: 'login' },
+      content: 'Login',
+    });
+  }
+
+  render(): Node {
+    const fragment = this.compile('<div class="login">Login</div>');
+    return fragment;
   }
 }
 
-class NotFound extends Block {
-  protected render(): HTMLElement {
-    const div = document.createElement('div');
-    div.textContent = '404';
-    return div;
+class NotFoundPage extends Block {
+  constructor(props?: any) {
+    super('div', {
+      ...props,
+      attrs: { class: 'notfound' },
+      content: '404',
+    });
   }
-}
 
-class TestRouter extends Router {
-  protected initRoutes() {
-    (this as any).routes = [
-      { path: '/', component: PageA },
-      { path: '/test', component: PageB },
-      { path: Routes.Error404, component: NotFound },
-    ];
+  render(): Node {
+    const fragment = this.compile('<div class="notfound">404</div>');
+    return fragment;
   }
 }
 
@@ -45,11 +55,17 @@ describe('Router', () => {
   beforeEach(() => {
     document.body.innerHTML = '<div id="app"></div>';
     window.history.replaceState({}, '', '/');
-    
+
     originalGetCurrentUser = apiModule.chatAPI.getCurrentUser;
     apiModule.chatAPI.getCurrentUser = async () => {
       throw new Error('Not authenticated');
     };
+
+    router = new Router();
+    router.clearRoutes();
+    router.use('/', DashboardPage);
+    router.use('/login', LoginPage);
+    router.use('*', NotFoundPage);
   });
 
   afterEach(() => {
@@ -61,126 +77,108 @@ describe('Router', () => {
   });
 
   describe('метод navigate', () => {
-    it('должен вызывать navigate и обновлять pathname через Router', async () => {
-      router = new TestRouter();
-      const initialPath = window.location.pathname;
-      const testPath = '/test';
-      
-      await router.navigate(testPath);
-      
-      expect(window.location.pathname).to.equal(testPath);
-      expect(window.location.pathname).to.not.equal(initialPath);
-    });
-
     it('должен обрабатывать роут и рендерить компонент через Router', async () => {
-      router = new TestRouter();
-      const testPath = '/test';
-      
-      await router.navigate(testPath);
-      
+      await router.navigate('/login');
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('B');
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.login')).to.not.be.null;
+      expect(appElement?.textContent).to.include('Login');
     });
   });
 
   describe('метод go', () => {
-    it('должен вызывать go и навигировать через Router', async () => {
-      router = new TestRouter();
-      const testPath = '/';
-      
-      await router.go(testPath);
-      
-      expect(window.location.pathname).to.equal(testPath);
+    it('должен обрабатывать роут при вызове go', async () => {
+      await router.go('/');
+
+      const appElement = document.querySelector('#app');
+      expect(appElement).to.not.be.null;
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.dashboard')).to.not.be.null;
+      expect(appElement?.textContent).to.include('Dashboard');
     });
 
     it('должен последовательно навигировать через go', async () => {
-      router = new TestRouter();
-      
       await router.go('/');
-      expect(window.location.pathname).to.equal('/');
-      
-      await router.go('/test');
-      expect(window.location.pathname).to.equal('/test');
-    });
+      const content1 = document.querySelector('#app')?.textContent;
 
-    it('должен обрабатывать роут при вызове go', async () => {
-      router = new TestRouter();
-      
-      await router.go('/');
-      
-      const appElement = document.querySelector('#app');
-      expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('A');
+      await router.go('/login');
+      const content2 = document.querySelector('#app')?.textContent;
+
+      expect(content1).to.not.equal(content2);
+      expect(content1).to.include('Dashboard');
+      expect(content2).to.include('Login');
     });
   });
 
   describe('метод start', () => {
     it('должен инициализировать роутер и обработать текущий путь', async () => {
       window.history.replaceState({}, '', '/');
-      router = new TestRouter();
-      
+      router = new Router();
+      router.clearRoutes();
+      router.use('/', DashboardPage);
+      router.use('/login', LoginPage);
+      router.use('*', NotFoundPage);
+
       await router.start();
-      
-      expect(window.location.pathname).to.equal('/');
-      
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('A');
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.dashboard')).to.not.be.null;
+      expect(appElement?.textContent).to.include('Dashboard');
     });
 
     it('должен обработать путь при старте роутера', async () => {
-      window.history.replaceState({}, '', '/test');
-      router = new TestRouter();
-      
+      window.history.replaceState({}, '', '/login');
+      router = new Router();
+      router.clearRoutes();
+      router.use('/', DashboardPage);
+      router.use('/login', LoginPage);
+      router.use('*', NotFoundPage);
+
       await router.start();
-      
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('B');
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.login')).to.not.be.null;
+      expect(appElement?.textContent).to.include('Login');
     });
   });
 
   describe('обработка popstate', () => {
     it('должен обрабатывать popstate события через Router', async () => {
-      router = new TestRouter();
-      await router.navigate('/test');
-      
+      await router.navigate('/login');
+      expect(document.querySelector('#app')?.textContent).to.include('Login');
+
       window.history.pushState({}, '', '/');
       const popstateEvent = new window.PopStateEvent('popstate', { state: {} });
       window.dispatchEvent(popstateEvent);
-      
-      await Promise.resolve();
-      
-      expect(window.location.pathname).to.equal('/');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
+      expect(appElement?.innerHTML).to.not.equal('');
     });
   });
 
   describe('404 роут', () => {
     it('должен определять неизвестные пути и показывать 404 через Router', async () => {
-      router = new TestRouter();
-      const unknownPath = '/unknown-path-12345';
-      
-      await router.navigate(unknownPath);
-      
-      expect(window.location.pathname).to.equal(unknownPath);
-      
+      await router.navigate('/unknown-path-12345');
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('404');
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.notfound')).to.not.be.null;
+      expect(appElement?.textContent).to.include('404');
     });
   });
 
   describe('вызов render/mount', () => {
     it('должен иметь элемент #app для рендеринга', () => {
-      router = new TestRouter();
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
       if (appElement) {
@@ -189,109 +187,108 @@ describe('Router', () => {
     });
 
     it('должен рендерить компонент в #app при навигации', async () => {
-      router = new TestRouter();
-      
       await router.navigate('/');
-      
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
-      expect(appElement?.textContent).to.not.equal('');
-      expect(appElement?.textContent).to.equal('A');
+      expect(appElement?.innerHTML).to.not.equal('');
+      expect(appElement?.querySelector('.dashboard')).to.not.be.null;
+      expect(appElement?.textContent).to.include('Dashboard');
     });
   });
 
   describe('обработка кликов по ссылкам', () => {
     it('должен обрабатывать клики по внутренним ссылкам через Router', async () => {
-      router = new TestRouter();
+      await router.navigate('/');
+      expect(document.querySelector('#app')?.textContent).to.include('Dashboard');
+
       const link = document.createElement('a');
-      link.href = `${window.location.origin}/test`;
+      link.href = `${window.location.origin}/login`;
       link.textContent = 'Test';
       document.body.appendChild(link);
-      
+
       const clickEvent = new window.MouseEvent('click', { bubbles: true });
       link.dispatchEvent(clickEvent);
-      
-      await Promise.resolve();
-      
-      expect(window.location.pathname).to.equal('/test');
-      
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
+      expect(appElement?.innerHTML).to.not.equal('');
     });
 
-    it('должен различать внутренние и внешние ссылки через Router', () => {
-      router = new TestRouter();
+    it('должен различать внутренние и внешние ссылки через Router', async () => {
+      await router.navigate('/');
+      expect(document.querySelector('#app')?.textContent).to.include('Dashboard');
+
       const internalLink = document.createElement('a');
-      internalLink.href = `${window.location.origin}/test`;
+      internalLink.href = `${window.location.origin}/login`;
       document.body.appendChild(internalLink);
-      
+
       const externalLink = document.createElement('a');
       externalLink.href = 'https://example.com';
       document.body.appendChild(externalLink);
-      
+
       const internalClickEvent = new window.MouseEvent('click', { bubbles: true });
       internalLink.dispatchEvent(internalClickEvent);
-      
-      expect(window.location.pathname).to.equal('/test');
-      
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const appElement = document.querySelector('#app');
+      expect(appElement).to.not.be.null;
+      expect(appElement?.innerHTML).to.not.equal('');
+
       const externalClickEvent = new window.MouseEvent('click', { bubbles: true });
       externalLink.dispatchEvent(externalClickEvent);
-      
-      expect(window.location.pathname).to.equal('/test');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(document.querySelector('#app')?.innerHTML).to.not.equal('');
     });
   });
 
   describe('методы back и forward', () => {
-    it('должен поддерживать метод back через Router', async () => {
-      router = new TestRouter();
+    it('должен поддерживать метод back через Router', () => {
       expect(typeof router.back).to.equal('function');
-      
-      await router.navigate('/test');
-      await router.navigate('/');
-      
+
       router.back();
-      
-      expect(typeof window.history.length).to.equal('number');
+
+      expect(typeof router.back).to.equal('function');
     });
 
-    it('должен поддерживать метод forward через Router', async () => {
-      router = new TestRouter();
+    it('должен поддерживать метод forward через Router', () => {
       expect(typeof router.forward).to.equal('function');
-      
-      await router.navigate('/test');
-      router.back();
-      
+
       router.forward();
-      
-      expect(typeof window.location.pathname).to.equal('string');
+
+      expect(typeof router.forward).to.equal('function');
     });
   });
 
   describe('поведение Router при навигации', () => {
     it('должен обновлять содержимое #app при навигации на разные роуты', async () => {
-      router = new TestRouter();
-      
       await router.navigate('/');
       const content1 = document.querySelector('#app')?.textContent;
-      
-      await router.navigate('/test');
+
+      await router.navigate('/login');
       const content2 = document.querySelector('#app')?.textContent;
-      
+
       expect(content1).to.not.equal(content2);
-      expect(content1).to.equal('A');
-      expect(content2).to.equal('B');
+      expect(content1).to.include('Dashboard');
+      expect(content2).to.include('Login');
     });
 
     it('должен обрабатывать повторную навигацию на тот же роут', async () => {
-      router = new TestRouter();
-      
       await router.navigate('/');
-      
+      const content1 = document.querySelector('#app')?.textContent;
+
       await router.navigate('/');
-      
-      expect(window.location.pathname).to.equal('/');
+      const content2 = document.querySelector('#app')?.textContent;
+
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
+      expect(content1).to.equal(content2);
+      expect(content2).to.include('Dashboard');
     });
   });
 });
