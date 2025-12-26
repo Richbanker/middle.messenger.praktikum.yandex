@@ -23,3 +23,5 @@ Object.defineProperty(global, 'navigator', {
   configurable: true,
 });
 
+(global as any).localStorage = window.localStorage;
+
