@@ -1,7 +1,7 @@
-import { View } from '../View.js';
-import { template } from '../../utils/template.js';
-import { attachFormValidation } from '../../utils/validation.js';
-import { Block } from '../../core/Block.js';
+import { View } from '../View';
+import { template } from '../../utils/template';
+import { attachFormValidation } from '../../utils/validation';
+import { Block } from '../../core/Block';
 
 export class Settings extends View {
   constructor() {

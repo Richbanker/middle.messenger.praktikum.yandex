@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import Block from "../../services/Block.js";
+import Block from "../../services/Block";
 import { linkCardTemplate } from "./linkCardTemplate";
 import { iconTemplate } from "../icon/iconTebplate";
 

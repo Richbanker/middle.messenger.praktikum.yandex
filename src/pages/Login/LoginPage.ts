@@ -1,4 +1,4 @@
-import Block from '../../services/Block.js';
+import Block from '../../services/Block';
 
 export default class LoginPage extends Block {
   protected render(): DocumentFragment {

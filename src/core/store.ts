@@ -1,5 +1,5 @@
-import { EventBus } from './EventBus.js';
-import { RootState, ChatsState } from '../types/index.js';
+import { EventBus } from './EventBus';
+import { RootState, ChatsState } from '../types/index';
 
 export const STORE_EVENTS = {
   UPDATED: 'store:updated',

@@ -1,4 +1,4 @@
-import { httpClient, HttpError } from './HttpClient.js';
+import { httpClient, HttpError } from './HttpClient';
 
 export interface LoginRequest {
   login: string;

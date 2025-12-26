@@ -1,5 +1,5 @@
-import Block from "../../services/Block.js";
-import { messageTemplate } from "./messageTemplate.js";
+import Block from "../../services/Block";
+import { messageTemplate } from "./messageTemplate";
 
 export { messageTemplate };
 

@@ -1,5 +1,5 @@
 import { iconTemplate } from "./iconTebplate";
-import Block from "../../services/Block.js";
+import Block from "../../services/Block";
 
 interface IconProps {
   name: string;

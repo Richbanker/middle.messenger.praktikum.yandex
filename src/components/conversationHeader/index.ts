@@ -1,4 +1,4 @@
-import Block from "../../services/Block.js";
+import Block from "../../services/Block";
 import { iconTemplate } from "../icon/iconTebplate";
 import { conversationHeaderTemplate } from "./conversationHeaderTemplate";
 import Handlebars from "handlebars";

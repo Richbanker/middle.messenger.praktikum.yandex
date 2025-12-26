@@ -1,4 +1,4 @@
-import Block from "../../services/Block.js";
+import Block from "../../services/Block";
 import { buttonTemplate } from "./buttonTemplate";
 
 interface ButtonProps {

@@ -1,7 +1,7 @@
-import Block from "../../services/Block.js";
+import Block from "../../services/Block";
 import Handlebars from "handlebars";
-import { errorTemplate } from "./errorTemplate.js";
-import { iconTemplate } from "../../components/icon/iconTebplate.js";
+import { errorTemplate } from "./errorTemplate";
+import { iconTemplate } from "../../components/icon/iconTebplate";
 
 Handlebars.registerPartial("icon", iconTemplate);
 

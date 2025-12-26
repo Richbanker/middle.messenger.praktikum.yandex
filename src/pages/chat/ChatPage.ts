@@ -1,15 +1,15 @@
-import Block from "../../services/Block.js";
-import ConversationHeader from "../../components/conversationHeader/index.js";
-import { MessageInput } from "../../components/MessageInput/MessageInput.js";
-import { chatTemplate } from "./chatTemplate.js";
+import Block from "../../services/Block";
+import ConversationHeader from "../../components/conversationHeader/index";
+import { MessageInput } from "../../components/MessageInput/MessageInput";
+import { chatTemplate } from "./chatTemplate";
 import Handlebars from "handlebars";
-import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate.js";
-import { messageTemplate } from "../../components/Message/index.js";
-import { chatItemTemplate } from "../../components/ChatItem/chatItemTemplate.js";
-import { iconTemplate } from "../../components/icon/iconTebplate.js";
-import { Validator } from "../../services/Validator.js";
-import { chatAPI } from "../../services/api.js";
-import { webSocketService, WSMessage } from "../../services/WebSocketService.js";
+import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate";
+import { messageTemplate } from "../../components/Message/index";
+import { chatItemTemplate } from "../../components/ChatItem/chatItemTemplate";
+import { iconTemplate } from "../../components/icon/iconTebplate";
+import { Validator } from "../../services/Validator";
+import { chatAPI } from "../../services/api";
+import { webSocketService, WSMessage } from "../../services/WebSocketService";
 
 Handlebars.registerPartial("conversationHeader", conversationHeaderTemplate);
 Handlebars.registerPartial("message", messageTemplate);

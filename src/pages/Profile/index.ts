@@ -1,3 +1,3 @@
-export { Profile } from './Profile.js';
-export { default as ProfilePage } from './ProfilePage.js';
+export { Profile } from './Profile';
+export { default as ProfilePage } from './ProfilePage';
 

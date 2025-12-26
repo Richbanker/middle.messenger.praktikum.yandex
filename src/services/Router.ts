@@ -1,12 +1,12 @@
-import { render } from "./render.js";
-import Block from "./Block.js";
-import { HomePage } from "../pages/homePage/HomePage.js";
-import { LoginPage } from "../pages/Login/index.js";
-import { RegistrationPage } from "../pages/registration/RegistrationPage.js";
-import { ProfilePage } from "../pages/Profile/index.js";
-import { ErrorPage } from "../pages/errorsPage/ErrorPage.js";
-import { chatAPI } from "./api.js";
-import { Routes } from "./Routes.js";
+import { render } from "./render";
+import Block from "./Block";
+import { HomePage } from "../pages/homePage/HomePage";
+import { LoginPage } from "../pages/Login/index";
+import { RegistrationPage } from "../pages/registration/RegistrationPage";
+import { ProfilePage } from "../pages/Profile/index";
+import { ErrorPage } from "../pages/errorsPage/ErrorPage";
+import { chatAPI } from "./api";
+import { Routes } from "./Routes";
 
 export interface Route {
   path: string;

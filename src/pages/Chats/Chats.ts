@@ -1,11 +1,11 @@
-import { View } from '../View.js';
-import { Block } from '../../core/Block.js';
-import { store, STORE_EVENTS } from '../../core/store.js';
-import { Chat } from '../../types/index.js';
-import { CreateChatModal } from '../../components/CreateChatModal/CreateChatModal.js';
-import { ChatList } from '../../components/ChatList/ChatList.js';
-import { MessageList } from '../../components/MessageList/MessageList.js';
-import { MessageInput } from '../../components/MessageInput/MessageInput.js';
+import { View } from '../View';
+import { Block } from '../../core/Block';
+import { store, STORE_EVENTS } from '../../core/store';
+import { Chat } from '../../types/index';
+import { CreateChatModal } from '../../components/CreateChatModal/CreateChatModal';
+import { ChatList } from '../../components/ChatList/ChatList';
+import { MessageList } from '../../components/MessageList/MessageList';
+import { MessageInput } from '../../components/MessageInput/MessageInput';
 
 export class Chats extends View {
   private createChatModal: CreateChatModal;
