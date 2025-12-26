@@ -1,0 +1,119 @@
+@use '../../pages/utils.scss' as *;
+.link-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(10, 10, 20, 0.7);
+  border-radius: $border-radius;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  &__icon {
+    margin-right: 1.5rem;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+
+  &__title {
+    color: white;
+    font-family: $font-heading;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  &__desc {
+    color: rgba(white, 0.6);
+    font-size: 0.9rem;
+  }
+
+  &__arrow {
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover &__arrow {
+    opacity: 1;
+  }
+
+  &--blue {
+    border-color: rgba($color-neon-blue, 0.3);
+
+    &:hover {
+      box-shadow: 0 5px 15px rgba($color-neon-blue, 0.2);
+    }
+
+    .link-card__icon svg {
+      fill: $color-neon-blue;
+    }
+  }
+
+  &--pink {
+    border-color: rgba($color-neon-pink, 0.3);
+
+    &:hover {
+      box-shadow: 0 5px 15px rgba($color-neon-pink, 0.2);
+    }
+
+    .link-card__icon svg {
+      fill: $color-neon-pink;
+    }
+  }
+  &--orange {
+    border-left: 3px solid $color-neon-orange;
+    background: rgba($color-neon-orange, 0.05);
+
+    &:hover {
+      box-shadow: 0 0 15px rgba($color-neon-orange, 0.3);
+    }
+
+    .link-card__icon {
+      color: $color-neon-orange;
+    }
+
+    .link-card__arrow {
+      color: rgba($color-neon-orange, 0.7);
+    }
+  }
+  &--green {
+    border-left: 3px solid $color-neon-green;
+    background: rgba($color-neon-green, 0.05);
+
+    &:hover {
+      box-shadow: 0 0 15px rgba($color-neon-green, 0.3);
+    }
+
+    .link-card__icon {
+      color: $color-neon-green;
+    }
+  }
+
+  &--purple {
+    border-color: rgba($color-neon-purple, 0.3);
+
+    &:hover {
+      box-shadow: 0 5px 15px rgba($color-neon-purple, 0.2);
+    }
+
+    .link-card__icon svg {
+      fill: $color-neon-purple;
+    }
+  }
+}

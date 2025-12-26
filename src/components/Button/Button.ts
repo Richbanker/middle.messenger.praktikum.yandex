@@ -1,35 +1,29 @@
-import { Block, Props } from '@/core/Block';
+import Block from "../../services/Block";
+import { buttonTemplate } from "./buttonTemplate";
 
-interface ButtonProps extends Props {
+interface ButtonProps {
   text: string;
-  type?: 'button' | 'submit' | 'reset';
-  className?: string;
-  onClick?: () => void;
+  type?: string;
+  class?: string;
+  pulse?: boolean;
+  disabled?: boolean;
+  id?: string;
+  icon?: string;
+  onClick?: (event: Event) => void;
 }
 
-export class Button extends Block<ButtonProps> {
+export class Button extends Block {
   constructor(props: ButtonProps) {
-    super({
+    super("div", {
       ...props,
+      type: props.type || "button",
       events: {
         click: props.onClick || (() => {}),
       },
     });
   }
 
-  protected render(): DocumentFragment {
-    const { type, className, text } = this.props;
-    return this.compile(
-      () => `
-        <button 
-          type="${type || 'button'}" 
-          class="${className || 'button'}"
-        >
-          ${text}
-        </button>
-      `,
-      {}
-    );
+  render() {
+    return this.compile(buttonTemplate, this.props);
   }
 }
-

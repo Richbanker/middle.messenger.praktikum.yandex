@@ -1,7 +1,7 @@
 import { View } from '../View';
-import { template } from '@/utils/template';
-import { attachFormValidation, validateField } from '@/utils/validation';
-import { Block } from '@/core/Block';
+import { template } from '../../utils/template';
+import { attachFormValidation, validateField } from '../../utils/validation';
+import { Block } from '../../core/Block';
 
 export class RegisterPage extends View {
   constructor() {
@@ -29,7 +29,6 @@ export class RegisterPage extends View {
         });
         
         if (isValid) {
-          console.log('Register form data:', formData);
           
           localStorage.setItem('profile_email', formData.email || '');
           localStorage.setItem('profile_login', formData.login || '');

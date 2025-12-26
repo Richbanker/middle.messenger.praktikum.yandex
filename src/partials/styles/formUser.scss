@@ -1,0 +1,311 @@
+// ======================================
+//  Переменные
+// ======================================
+@use '../../pages/utils.scss' as *;
+// $color-dark-bg: #0a0a12;
+// $color-darker-bg: #050508;
+// $color-neon-blue: #0ff0fc;
+// $color-neon-pink: #ff2a6d;
+// $color-neon-purple: #9d00ff;
+// $color-error: #ff3860;
+// $color-success: #2ecc71;
+
+// // Типографика
+// $font-main: "Rajdhani", sans-serif;
+// $font-heading: "Orbitron", sans-serif;
+// $font-monospace: "Courier New", monospace;
+
+// $glow-blue: 0 0 10px rgba($color-neon-blue, 0.5);
+// $glow-pink: 0 0 10px rgba($color-neon-pink, 0.5);
+// $glow-purple: 0 0 10px rgba($color-neon-purple, 0.5);
+
+// // Размеры
+// $border-radius: 4px;
+// $transition-duration: 0.3s;
+
+// ======================================
+//  Миксины
+// ======================================
+
+// Эффект глитча
+@mixin glitch-effect($color1, $color2, $color3) {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+  }
+
+  &::before {
+    left: 2px;
+    text-shadow: 0 0 5px $color2;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+
+  &::after {
+    left: -2px;
+    text-shadow: 0 0 5px $color3;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+  }
+}
+
+@mixin neon-text($color, $glow-intensity: 0.8) {
+  color: $color;
+  text-shadow: 0 0 5px rgba($color, $glow-intensity);
+
+  &:hover {
+    text-shadow: 0 0 10px rgba($color, $glow-intensity + 0.2);
+  }
+}
+
+@mixin scanline($color: rgba($color-neon-blue, 0.05), $speed: 4s) {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      $color 50%,
+      transparent 100%
+    );
+    background-size: 100% 8px;
+    animation: scan $speed linear infinite;
+    pointer-events: none;
+  }
+}
+
+@mixin pulse($color, $size: 10px) {
+  animation: pulse-anim 2s infinite;
+
+  @keyframes pulse-anim {
+    0% {
+      box-shadow: 0 0 0 0 rgba($color, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 $size rgba($color, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba($color, 0);
+    }
+  }
+}
+
+// ======================================
+//  Анимации
+// ======================================
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(32px, 9999px, 78px, 0);
+  }
+  20% {
+    clip: rect(8px, 9999px, 32px, 0);
+  }
+  40% {
+    clip: rect(64px, 9999px, 99px, 0);
+  }
+  60% {
+    clip: rect(12px, 9999px, 45px, 0);
+  }
+  80% {
+    clip: rect(70px, 9999px, 92px, 0);
+  }
+  100% {
+    clip: rect(23px, 9999px, 85px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(95px, 9999px, 15px, 0);
+  }
+  20% {
+    clip: rect(3px, 9999px, 99px, 0);
+  }
+  40% {
+    clip: rect(55px, 9999px, 72px, 0);
+  }
+  60% {
+    clip: rect(28px, 9999px, 60px, 0);
+  }
+  80% {
+    clip: rect(88px, 9999px, 12px, 0);
+  }
+  100% {
+    clip: rect(40px, 9999px, 33px, 0);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: rotate(30deg) translate(-30%, -30%);
+  }
+  100% {
+    transform: rotate(30deg) translate(30%, 30%);
+  }
+}
+
+// ======================================
+//  Хелпер-классы
+// ======================================
+
+.neon-text-blue {
+  @include neon-text($color-neon-blue);
+}
+
+.neon-text-pink {
+  @include neon-text($color-neon-pink);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 2.5rem;
+  background: rgba($color-dark-bg, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1;
+
+  &--neon {
+    border: 1px solid rgba($color-neon-blue, 0.2);
+    box-shadow: 0 0 15px rgba($color-neon-blue, 0.2),
+      inset 0 0 10px rgba($color-neon-blue, 0.1);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        $color-neon-blue 50%,
+        transparent 55%
+      );
+      opacity: 0.1;
+      transform: rotate(30deg);
+      animation: shine 8s linear infinite;
+      z-index: -1;
+    }
+  }
+
+  &__title {
+    color: $color-neon-blue;
+    font-family: $font-heading;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba($color-neon-blue, 0.5);
+    position: relative;
+
+    &--glitch {
+      @include glitch-effect(
+        $color-neon-blue,
+        $color-neon-pink,
+        $color-neon-purple
+      );
+    }
+  }
+
+  &__subtitle {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba($color-neon-blue, 0.7);
+    margin-top: 0.5rem;
+    text-shadow: none;
+    letter-spacing: normal;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 480px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__footer {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba($color-neon-blue, 0.1);
+    font-size: 0.85rem;
+    text-align: center;
+    color: rgba(white, 0.6);
+  }
+
+  &__footer-link {
+    color: $color-neon-blue;
+    text-decoration: none;
+    margin: 0 0.3rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: rotate(30deg) translate(-30%, -30%);
+    }
+    100% {
+      transform: rotate(30deg) translate(30%, 30%);
+    }
+  }
+}

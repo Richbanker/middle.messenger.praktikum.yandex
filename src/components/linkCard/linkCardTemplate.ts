@@ -1,0 +1,12 @@
+export const linkCardTemplate = `<a href="{{url}}" class="link-card link-card--{{accent}}">
+  <div class="link-card__icon">
+    {{> icon name=icon}}
+  </div>
+  <div class="link-card__content">
+    <h3 class="link-card__title">{{title}}</h3>
+    <p class="link-card__desc">{{description}}</p>
+  </div>
+  <div class="link-card__arrow">
+    {{> icon name="arrow-right"}}
+  </div>
+</a>`;

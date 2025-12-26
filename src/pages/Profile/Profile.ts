@@ -1,7 +1,7 @@
 import { View } from '../View';
-import { template } from '@/utils/template';
-import { attachFormValidation } from '@/utils/validation';
-import { Block } from '@/core/Block';
+import { template } from '../../utils/template';
+import { attachFormValidation } from '../../utils/validation';
+import { Block } from '../../core/Block';
 
 interface ProfileFormData {
   email: string;
@@ -54,7 +54,6 @@ export class Profile extends View {
           avatar: this.profileData.avatar || '',
         };
 
-        console.log('Profile form data:', profileData);
 
         localStorage.setItem('profile_email', profileData.email);
         localStorage.setItem('profile_login', profileData.login);

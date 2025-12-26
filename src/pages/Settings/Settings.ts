@@ -1,7 +1,7 @@
 import { View } from '../View';
-import { template } from '@/utils/template';
-import { attachFormValidation } from '@/utils/validation';
-import { Block } from '@/core/Block';
+import { template } from '../../utils/template';
+import { attachFormValidation } from '../../utils/validation';
+import { Block } from '../../core/Block';
 
 export class Settings extends View {
   constructor() {
@@ -29,7 +29,6 @@ export class Settings extends View {
         });
         
         if (isValid) {
-          console.log('Settings form data:', formData);
           alert('Пароль успешно изменен!');
           form.reset();
         }

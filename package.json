@@ -1,33 +1,58 @@
 {
-  "name": "sprint2-messenger",
-  "version": "1.0.0",
+  "name": "easy-bundler",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.16.1"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.json && vite build",
+    "build": "vite build",
     "preview": "vite preview --port 3000",
     "start": "npm run build && npm run preview",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
-    "stylelint": "stylelint \"src/**/*.css\" --fix",
-    "test": "npm run typecheck && npm run lint && npm run stylelint"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "patch-package": "^8.0.1"
+    "build:preview": "npm run build && npm run preview",
+    "check": "npm run lint && npm run lint:styles && npm run build",
+    "test": "cross-env NODE_OPTIONS=--loader=ts-node/esm mocha",
+    "test:watch": "cross-env NODE_OPTIONS=--loader=ts-node/esm mocha --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "eslint": "npm run lint",
+    "typecheck": "tsc --noEmit",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
+    "lint:all": "npm run lint && npm run lint:styles",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "esbuild": "^0.25.12",
-    "eslint": "^8.56.0",
-    "postcss": "^8.4.33",
-    "stylelint": "^16.0.2",
-    "stylelint-config-standard": "^36.0.0",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "@eslint/js": "^9.36.0",
+    "@types/chai": "^5.2.3",
+    "@types/jsdom": "^27.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "chai": "^6.2.2",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.36.0",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.3.0",
+    "lint-staged": "^16.2.7",
+    "mocha": "^11.7.5",
+    "sass-embedded": "^1.86.3",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "vite": "^6.4.1",
+    "vite-plugin-checker": "^0.12.0"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0",
+    "vite-plugin-handlebars": "^2.0.0"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0"
   }
 }

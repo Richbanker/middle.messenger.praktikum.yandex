@@ -1,68 +1,33 @@
-import './styles/index.css';
-import { View } from './pages/View';
-import { Login } from './pages/Login';
-import { RegisterPage } from './pages/Register';
-import { Chats } from './pages/Chats';
-import { Profile } from './pages/Profile';
-import { Settings } from './pages/Settings';
+import "./style.scss";
+import "./partials/styles/global.scss";
+import "./partials/styles/btn.scss";
+import "./partials/styles/formInputGroup.scss";
+import "./partials/styles/formUser.scss";
+import "./partials/styles/linkCard.scss";
+import "./pages/homePage/style.scss";
+import "./pages/login/style.scss";
+import "./pages/registration/style.scss";
+import "./pages/profile/style.scss";
+import "./pages/errorsPage/style.scss";
+import "./pages/chat/style.scss";
+import "./partials/styles/chatItem.scss";
+import "./partials/styles/conversationHeader.scss";
+import "./partials/styles/message.scss";
+import "./partials/styles/messageInput.scss";
+import "../scripts/handlebars-helpers.js";
+import "./partials/styles/icon.scss";
+import { Router } from "./services/Router";
+import { httpClient } from "./services/HttpClient";
 
-type Route = '/login' | '/register' | '/chats' | '/profile' | '/settings';
+const router = new Router();
 
-const routes: Record<Route, () => View> = {
-  '/login': () => new Login(),
-  '/register': () => new RegisterPage(),
-  '/chats': () => new Chats(),
-  '/profile': () => new Profile(),
-  '/settings': () => new Settings(),
-};
+(window as any).router = router;
 
-function renderRoute(pathname: string): void {
-  const root = document.getElementById('app');
-  if (!root) {
-    throw new Error('#app not found');
-  }
+(window as any).httpClient = httpClient;
 
-  const route = (Object.keys(routes) as Route[]).includes(pathname as Route)
-    ? (pathname as Route)
-    : '/login';
+import { webSocketService } from "./services/WebSocketService";
+(window as any).webSocketService = webSocketService;
 
-  const view = routes[route]();
-  root.innerHTML = '';
-  
-  const content = view.getContent();
-  if (content) {
-    root.appendChild(content);
-    view.show();
-  } else {
-    requestAnimationFrame(() => {
-      const content = view.getContent();
-      if (content && root) {
-        root.appendChild(content);
-        view.show();
-      }
-    });
-  }
-}
-
-(window as Window & { renderRoute?: (pathname: string) => void }).renderRoute = renderRoute;
-
-document.addEventListener('click', (e: Event) => {
-  const target = e.target;
-  if (!(target instanceof HTMLElement)) {
-    return;
-  }
-  const a = target.closest('a[data-link]') as HTMLAnchorElement | null;
-  if (!a) {
-    return;
-  }
-  e.preventDefault();
-  const url = new URL(a.href);
-  window.history.pushState(null, '', url.pathname);
-  renderRoute(url.pathname);
+document.addEventListener("DOMContentLoaded", async () => {
+  await router.start();
 });
-
-window.addEventListener('popstate', () => {
-  renderRoute(window.location.pathname);
-});
-
-renderRoute(window.location.pathname);

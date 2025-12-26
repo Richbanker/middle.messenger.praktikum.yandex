@@ -3,11 +3,18 @@ import { chatsController } from '@/controllers/ChatsController';
 import { validateMessage } from '@/utils/validation';
 
 interface MessageInputProps extends Props {
+  placeholder?: string;
+  onSend?: (message: string) => void;
+  onInput?: (event: Event) => void;
   onSubmit?: () => void;
 }
 
 export class MessageInput extends Block<MessageInputProps> {
   private submitHandler: ((e: Event) => void) | null = null;
+
+  constructor(props: MessageInputProps = {}) {
+    super(props);
+  }
 
   protected componentDidMount(): void {
     this.attachHandlers();
@@ -53,7 +60,6 @@ export class MessageInput extends Block<MessageInputProps> {
       return;
     }
 
-    console.log('Message form data:', { message: text });
 
     try {
       chatsController.sendMessage(form);
@@ -98,4 +104,3 @@ export class MessageInput extends Block<MessageInputProps> {
     );
   }
 }
-

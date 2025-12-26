@@ -1,9 +1,9 @@
 import { View } from '../View';
-import { template } from '@/utils/template';
-import { attachFormValidation, validateField } from '@/utils/validation';
-import { Block } from '@/core/Block';
-import { store } from '@/core/store';
-import { User } from '@/types';
+import { template } from '../../utils/template';
+import { attachFormValidation, validateField } from '../../utils/validation';
+import { Block } from '../../core/Block';
+import { store } from '../../core/store';
+import { User } from '../../types/index';
 
 export class Login extends View {
   constructor() {
@@ -33,7 +33,6 @@ export class Login extends View {
             formData[input.name] = input.value;
           });
           
-          console.log('Login form data:', formData);
           
           const loginInput = form.querySelector<HTMLInputElement>('input[name="login"]');
           const login = loginInput?.value.trim() || 'user';
