@@ -1,8 +1,8 @@
-import Block from "../../services/Block";
+import Block from "../../services/Block.js";
 import Handlebars from "handlebars";
-import { homeTemplate } from "./homeTemplate";
-import { linkCardTemplate } from "../../components/linkCard/linkCardTemplate";
-import { iconTemplate } from "../../components/icon/iconTebplate";
+import { homeTemplate } from "./homeTemplate.js";
+import { linkCardTemplate } from "../../components/linkCard/linkCardTemplate.js";
+import { iconTemplate } from "../../components/icon/iconTebplate.js";
 
 Handlebars.registerPartial("linkCard", linkCardTemplate);
 Handlebars.registerPartial("icon", iconTemplate);

@@ -1,13 +1,13 @@
-import Block from "../../services/Block";
+import Block from "../../services/Block.js";
 import Handlebars from "handlebars";
-import { registrationTemplate } from "./registrationTemplate";
-import { formInputGroupTemplate } from "../../components/formInputGroup/formInputGroupTemplate";
-import { formInputTemplate } from "../../components/formInput/fornInputTemplate";
-import { buttonTemplate } from "../../components/Button/buttonTemplate";
-import { iconTemplate } from "../../components/icon/iconTebplate";
-import { Validator, ValidationResult } from "../../services/Validator";
-import { chatAPI } from "../../services/api";
-import { HttpError } from "../../services/HttpClient";
+import { registrationTemplate } from "./registrationTemplate.js";
+import { formInputGroupTemplate } from "../../components/formInputGroup/formInputGroupTemplate.js";
+import { formInputTemplate } from "../../components/formInput/fornInputTemplate.js";
+import { buttonTemplate } from "../../components/Button/buttonTemplate.js";
+import { iconTemplate } from "../../components/icon/iconTebplate.js";
+import { Validator, ValidationResult } from "../../services/Validator.js";
+import { chatAPI } from "../../services/api.js";
+import { HttpError } from "../../services/HttpClient.js";
 
 Handlebars.registerPartial("formInputGroup", formInputGroupTemplate);
 Handlebars.registerPartial("formInput", formInputTemplate);
