@@ -16,8 +16,8 @@ import "./partials/styles/message.scss";
 import "./partials/styles/messageInput.scss";
 import "../scripts/handlebars-helpers.js";
 import "./partials/styles/icon.scss";
-import { Router } from "./services/Router.js";
-import { httpClient } from "./services/HttpClient.js";
+import { Router } from "./services/Router";
+import { httpClient } from "./services/HttpClient";
 
 const router = new Router();
 
@@ -25,7 +25,7 @@ const router = new Router();
 
 (window as any).httpClient = httpClient;
 
-import { webSocketService } from "./services/WebSocketService.js";
+import { webSocketService } from "./services/WebSocketService";
 (window as any).webSocketService = webSocketService;
 
 document.addEventListener("DOMContentLoaded", async () => {

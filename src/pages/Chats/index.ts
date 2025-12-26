@@ -1,2 +1,2 @@
-export { Chats } from './Chats.js';
+export { Chats } from './Chats';
 

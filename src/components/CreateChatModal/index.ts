@@ -1,2 +1,2 @@
-export { CreateChatModal } from './CreateChatModal.js';
+export { CreateChatModal } from './CreateChatModal';
 

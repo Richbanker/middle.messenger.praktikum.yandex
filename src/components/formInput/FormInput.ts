@@ -1,5 +1,5 @@
 import Block from "../../services/Block.js";
-import { Validator } from "../../services/Validator.js";
+import { Validator } from "../../services/Validator";
 
 interface FormInputProps {
   name: string;

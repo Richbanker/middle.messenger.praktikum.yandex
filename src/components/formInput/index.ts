@@ -1,1 +1,1 @@
-export { FormInput } from './FormInput.js';
+export { FormInput } from './FormInput';

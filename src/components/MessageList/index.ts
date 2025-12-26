@@ -1,2 +1,2 @@
-export { MessageList } from './MessageList.js';
+export { MessageList } from './MessageList';
 

@@ -1,6 +1,6 @@
 import Block from "../../services/Block.js";
-import { iconTemplate } from "../icon/iconTebplate";
-import { chatItemTemplate } from "./chatItemTemplate";
+import { iconTemplate } from "../icon/iconTebplate.js";
+import { chatItemTemplate } from "./chatItemTemplate.js";
 import Handlebars from "handlebars";
 
 interface ChatItemProps {
