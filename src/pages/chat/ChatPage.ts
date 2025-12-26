@@ -1,6 +1,6 @@
 import Block from "../../services/Block.js";
-import ConversationHeader from "../../components/conversationHeader";
-import { MessageInput } from "../../components/MessageInput/MessageInput";
+import ConversationHeader from "../../components/conversationHeader/index.js";
+import { MessageInput } from "../../components/MessageInput/MessageInput.js";
 import { chatTemplate } from "./chatTemplate.js";
 import Handlebars from "handlebars";
 import { conversationHeaderTemplate } from "../../components/conversationHeader/conversationHeaderTemplate.js";

@@ -1,4 +1,4 @@
-import Block from "../../services/Block";
+import Block from "../../services/Block.js";
 import Handlebars from "handlebars";
 import { formInputGroupTemplate } from "./formInputGroupTemplate";
 import { formInputTemplate } from "../formInput/fornInputTemplate";
