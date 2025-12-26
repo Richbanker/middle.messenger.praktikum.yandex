@@ -77,7 +77,7 @@ describe('Router', () => {
       const testPath = '/test';
       
       router.navigate(testPath);
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -110,7 +110,7 @@ describe('Router', () => {
       router = new TestRouter();
       
       router.go('/');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -125,7 +125,7 @@ describe('Router', () => {
       router = new TestRouter();
       
       await router.start();
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       expect(window.location.pathname).to.equal('/');
       
@@ -140,7 +140,7 @@ describe('Router', () => {
       router = new TestRouter();
       
       await router.start();
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -174,7 +174,7 @@ describe('Router', () => {
       const unknownPath = '/unknown-path-12345';
       
       router.navigate(unknownPath);
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       expect(window.location.pathname).to.equal(unknownPath);
       
@@ -199,7 +199,7 @@ describe('Router', () => {
       router = new TestRouter();
       
       router.navigate('/');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -280,11 +280,11 @@ describe('Router', () => {
       router = new TestRouter();
       
       router.navigate('/');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       const content1 = document.querySelector('#app')?.textContent;
       
       router.navigate('/test');
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise(resolve => setTimeout(resolve, 10));
       const content2 = document.querySelector('#app')?.textContent;
       
       expect(content1).to.not.equal(content2);
