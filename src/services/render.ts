@@ -6,13 +6,11 @@ export function render(query: string, block: Block): HTMLElement {
 
   block.dispatchComponentDidMount();
 
-  setTimeout(() => {
-    const content = block.getContent();
-    if (content) {
-      root.innerHTML = '';
-      root.appendChild(content);
-    }
-  }, 0);
+  const content = block.getContent();
+  if (content) {
+    root.innerHTML = '';
+    root.appendChild(content);
+  }
 
   return root as HTMLElement;
 }

@@ -6,25 +6,25 @@ import Block from './Block.js';
 
 class PageA extends Block {
   protected render() {
-    const fragment = document.createElement('template');
-    fragment.innerHTML = '<div>A</div>';
-    return fragment.content;
+    const div = document.createElement('div');
+    div.textContent = 'A';
+    return div;
   }
 }
 
 class PageB extends Block {
   protected render() {
-    const fragment = document.createElement('template');
-    fragment.innerHTML = '<div>B</div>';
-    return fragment.content;
+    const div = document.createElement('div');
+    div.textContent = 'B';
+    return div;
   }
 }
 
 class NotFound extends Block {
   protected render() {
-    const fragment = document.createElement('template');
-    fragment.innerHTML = '<div>404</div>';
-    return fragment.content;
+    const div = document.createElement('div');
+    div.textContent = '404';
+    return div;
   }
 }
 
@@ -66,7 +66,7 @@ describe('Router', () => {
       const initialPath = window.location.pathname;
       const testPath = '/test';
       
-      router.navigate(testPath);
+      await router.navigate(testPath);
       
       expect(window.location.pathname).to.equal(testPath);
       expect(window.location.pathname).to.not.equal(initialPath);
@@ -76,8 +76,7 @@ describe('Router', () => {
       router = new TestRouter();
       const testPath = '/test';
       
-      router.navigate(testPath);
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.navigate(testPath);
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -91,7 +90,7 @@ describe('Router', () => {
       router = new TestRouter();
       const testPath = '/';
       
-      router.go(testPath);
+      await router.go(testPath);
       
       expect(window.location.pathname).to.equal(testPath);
     });
@@ -99,18 +98,17 @@ describe('Router', () => {
     it('должен последовательно навигировать через go', async () => {
       router = new TestRouter();
       
-      router.go('/');
+      await router.go('/');
       expect(window.location.pathname).to.equal('/');
       
-      router.go('/test');
+      await router.go('/test');
       expect(window.location.pathname).to.equal('/test');
     });
 
     it('должен обрабатывать роут при вызове go', async () => {
       router = new TestRouter();
       
-      router.go('/');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.go('/');
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -125,7 +123,6 @@ describe('Router', () => {
       router = new TestRouter();
       
       await router.start();
-      await new Promise(resolve => setTimeout(resolve, 20));
       
       expect(window.location.pathname).to.equal('/');
       
@@ -140,7 +137,6 @@ describe('Router', () => {
       router = new TestRouter();
       
       await router.start();
-      await new Promise(resolve => setTimeout(resolve, 20));
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -152,9 +148,7 @@ describe('Router', () => {
   describe('обработка popstate', () => {
     it('должен обрабатывать popstate события через Router', async () => {
       router = new TestRouter();
-      router.navigate('/test');
-      
-      await Promise.resolve();
+      await router.navigate('/test');
       
       window.history.pushState({}, '', '/');
       const popstateEvent = new window.PopStateEvent('popstate', { state: {} });
@@ -173,8 +167,7 @@ describe('Router', () => {
       router = new TestRouter();
       const unknownPath = '/unknown-path-12345';
       
-      router.navigate(unknownPath);
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.navigate(unknownPath);
       
       expect(window.location.pathname).to.equal(unknownPath);
       
@@ -198,8 +191,7 @@ describe('Router', () => {
     it('должен рендерить компонент в #app при навигации', async () => {
       router = new TestRouter();
       
-      router.navigate('/');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.navigate('/');
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -250,23 +242,23 @@ describe('Router', () => {
   });
 
   describe('методы back и forward', () => {
-    it('должен поддерживать метод back через Router', () => {
+    it('должен поддерживать метод back через Router', async () => {
       router = new TestRouter();
       expect(typeof router.back).to.equal('function');
       
-      router.navigate('/test');
-      router.navigate('/');
+      await router.navigate('/test');
+      await router.navigate('/');
       
       router.back();
       
       expect(typeof window.history.length).to.equal('number');
     });
 
-    it('должен поддерживать метод forward через Router', () => {
+    it('должен поддерживать метод forward через Router', async () => {
       router = new TestRouter();
       expect(typeof router.forward).to.equal('function');
       
-      router.navigate('/test');
+      await router.navigate('/test');
       router.back();
       
       router.forward();
@@ -279,12 +271,10 @@ describe('Router', () => {
     it('должен обновлять содержимое #app при навигации на разные роуты', async () => {
       router = new TestRouter();
       
-      router.navigate('/');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.navigate('/');
       const content1 = document.querySelector('#app')?.textContent;
       
-      router.navigate('/test');
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await router.navigate('/test');
       const content2 = document.querySelector('#app')?.textContent;
       
       expect(content1).to.not.equal(content2);
@@ -295,11 +285,9 @@ describe('Router', () => {
     it('должен обрабатывать повторную навигацию на тот же роут', async () => {
       router = new TestRouter();
       
-      router.navigate('/');
-      await Promise.resolve();
+      await router.navigate('/');
       
-      router.navigate('/');
-      await Promise.resolve();
+      await router.navigate('/');
       
       expect(window.location.pathname).to.equal('/');
       const appElement = document.querySelector('#app');

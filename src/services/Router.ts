@@ -120,13 +120,13 @@ export class Router {
     });
   }
 
-  public navigate(path: string) {
+  public async navigate(path: string) {
     window.history.pushState({}, "", path);
-    this.handleRoute(path);
+    await this.handleRoute(path);
   }
 
-  public go(path: string) {
-    this.navigate(path);
+  public async go(path: string) {
+    await this.navigate(path);
   }
 
   public back() {
@@ -140,7 +140,7 @@ export class Router {
   private async handleRoute(path: string) {
     const errorPages = [Routes.Error404, Routes.Error500];
     if (errorPages.includes(path as Routes)) {
-      this.renderRoute(path);
+      await this.renderRoute(path);
       return;
     }
 
@@ -150,16 +150,16 @@ export class Router {
     const isAuthenticated = await this.checkAuthentication();
 
     if (isProtected && !isAuthenticated) {
-      this.navigate(Routes.SignIn);
+      await this.navigate(Routes.SignIn);
       return;
     }
 
     if (isAuthenticated && (path === Routes.SignIn || path === Routes.SignUp)) {
-      this.navigate(Routes.Messenger);
+      await this.navigate(Routes.Messenger);
       return;
     }
 
-    this.renderRoute(path);
+    await this.renderRoute(path);
   }
 
   private async checkAuthentication(): Promise<boolean> {
@@ -184,11 +184,11 @@ export class Router {
     let route = this.routes.find((r) => r.path === path);
 
     if (!route) {
-      route = this.routes.find((r) => path.startsWith(r.path));
+      route = this.routes.find((r) => r.path !== '/' && path.startsWith(r.path));
     }
 
     if (!route) {
-      route = this.routes.find((r) => r.path === Routes.Error404)!;
+      route = this.routes.find((r) => r.path === Routes.Error404 || r.path === '*')!;
     }
 
     if (path.includes(Routes.Messenger)) {
