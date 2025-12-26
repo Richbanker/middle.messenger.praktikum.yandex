@@ -1,2 +1,2 @@
-import { MessageInput } from './MessageInput';
+import { MessageInput } from './MessageInput.js';
 export { MessageInput };

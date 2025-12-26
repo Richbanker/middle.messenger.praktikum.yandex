@@ -3,6 +3,9 @@ import { chatsController } from '@/controllers/ChatsController';
 import { validateMessage } from '@/utils/validation';
 
 interface MessageInputProps extends Props {
+  placeholder?: string;
+  onSend?: (message: string) => void;
+  onInput?: (event: Event) => void;
   onSubmit?: () => void;
 }
 

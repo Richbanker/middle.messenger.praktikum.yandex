@@ -45,7 +45,7 @@ export class ChatPage extends Block {
   private chats: Chat[];
   private activeChatId: string | null;
   private messages: ChatMessage[];
-  private modalClickHandler: (e: Event) => void;
+  private modalClickHandler: (_e: Event) => void;
 
   constructor(props: ChatPageProps = {}) {
     const chats = props.chats || ChatPage.getMockChats();
