@@ -1,7 +1,7 @@
 import { View } from '../View.js';
-import { template } from '@/utils/template';
-import { attachFormValidation, validateField } from '@/utils/validation';
-import { Block } from '@/core/Block';
+import { template } from '../../utils/template.js';
+import { attachFormValidation, validateField } from '../../utils/validation.js';
+import { Block } from '../../core/Block.js';
 
 export class RegisterPage extends View {
   constructor() {
