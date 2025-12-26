@@ -22,7 +22,7 @@ export class Router {
     this.initEventListeners();
   }
 
-  private initRoutes() {
+  protected initRoutes() {
     this.routes = [
       {
         path: Routes.SignIn,
