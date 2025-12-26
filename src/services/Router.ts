@@ -1,12 +1,12 @@
-import { render } from "./render";
-import Block from "./Block";
-import { HomePage } from "../pages/homePage/HomePage";
-import { LoginPage } from "../pages/Login";
-import { RegistrationPage } from "../pages/registration/RegistrationPage";
-import { ProfilePage } from "../pages/Profile";
-import { ErrorPage } from "../pages/errorsPage/ErrorPage";
-import { chatAPI } from "./api";
-import { Routes } from "./Routes";
+import { render } from "./render.js";
+import Block from "./Block.js";
+import { HomePage } from "../pages/homePage/HomePage.js";
+import { LoginPage } from "../pages/Login/index.js";
+import { RegistrationPage } from "../pages/registration/RegistrationPage.js";
+import { ProfilePage } from "../pages/Profile/index.js";
+import { ErrorPage } from "../pages/errorsPage/ErrorPage.js";
+import { chatAPI } from "./api.js";
+import { Routes } from "./Routes.js";
 
 export interface Route {
   path: string;
@@ -125,6 +125,18 @@ export class Router {
     this.handleRoute(path);
   }
 
+  public go(path: string) {
+    this.navigate(path);
+  }
+
+  public back() {
+    window.history.back();
+  }
+
+  public forward() {
+    window.history.forward();
+  }
+
   private async handleRoute(path: string) {
     const errorPages = [Routes.Error404, Routes.Error500];
     if (errorPages.includes(path as Routes)) {
@@ -162,7 +174,7 @@ export class Router {
   private async renderRoute(path: string) {
     if (!path.includes(Routes.Messenger)) {
       try {
-        const { webSocketService } = await import("./WebSocketService");
+        const { webSocketService } = await import("./WebSocketService.js");
         webSocketService.disconnect();
       } catch {
         void 0;
@@ -181,7 +193,7 @@ export class Router {
 
     if (path.includes(Routes.Messenger)) {
       try {
-        const { ChatPage } = await import("../pages/chat/ChatPage");
+        const { ChatPage } = await import("../pages/chat/ChatPage.js");
         const chatPage = new ChatPage();
         render("#app", chatPage);
         return;
@@ -202,7 +214,7 @@ export class Router {
 
   public async logout() {
     try {
-      const { chatAPI } = await import("./api");
+      const { chatAPI } = await import("./api.js");
       await chatAPI.logout();
     } catch {
       void 0;
