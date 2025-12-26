@@ -174,7 +174,7 @@ export class Router {
   private async renderRoute(path: string) {
     if (!path.includes(Routes.Messenger)) {
       try {
-        const { webSocketService } = await import("./WebSocketService.js");
+        const { webSocketService } = await import("./WebSocketService");
         webSocketService.disconnect();
       } catch {
         void 0;
@@ -193,7 +193,7 @@ export class Router {
 
     if (path.includes(Routes.Messenger)) {
       try {
-        const { ChatPage } = await import("../pages/chat/ChatPage.js");
+        const { ChatPage } = await import("../pages/chat/ChatPage");
         const chatPage = new ChatPage();
         render("#app", chatPage);
         return;
@@ -214,7 +214,7 @@ export class Router {
 
   public async logout() {
     try {
-      const { chatAPI } = await import("./api.js");
+      const { chatAPI } = await import("./api");
       await chatAPI.logout();
     } catch {
       void 0;

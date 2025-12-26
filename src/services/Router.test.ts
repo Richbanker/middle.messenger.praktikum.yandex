@@ -43,7 +43,15 @@ describe('Router', () => {
       
       router.navigate(testPath);
       
-      await new Promise(resolve => setTimeout(resolve, 50));
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -76,7 +84,15 @@ describe('Router', () => {
       
       router.go(Routes.Home);
       
-      await new Promise(resolve => setTimeout(resolve, 50));
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -91,6 +107,16 @@ describe('Router', () => {
       
       await router.start();
       
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
+      
       expect(window.location.pathname).to.equal(Routes.Home);
       
       const appElement = document.querySelector('#app');
@@ -103,6 +129,16 @@ describe('Router', () => {
       router = new Router();
       
       await router.start();
+      
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -136,7 +172,15 @@ describe('Router', () => {
       
       router.navigate(unknownPath);
       
-      await new Promise(resolve => setTimeout(resolve, 50));
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       
       expect(window.location.pathname).to.equal(unknownPath);
       
@@ -161,7 +205,15 @@ describe('Router', () => {
       
       router.navigate(Routes.SignIn);
       
-      await new Promise(resolve => setTimeout(resolve, 50));
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       
       const appElement = document.querySelector('#app');
       expect(appElement).to.not.be.null;
@@ -241,11 +293,27 @@ describe('Router', () => {
       router = new Router();
       
       router.navigate(Routes.SignIn);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      let attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       const content1 = document.querySelector('#app')?.innerHTML;
       
       router.navigate(Routes.SignUp);
-      await new Promise(resolve => setTimeout(resolve, 50));
+      attempts = 0;
+      while (attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+        const appElement = document.querySelector('#app');
+        if (appElement && appElement.innerHTML !== '') {
+          break;
+        }
+        attempts++;
+      }
       const content2 = document.querySelector('#app')?.innerHTML;
       
       expect(content1).to.not.equal(content2);
