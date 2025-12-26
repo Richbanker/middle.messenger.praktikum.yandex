@@ -1,4 +1,4 @@
-import { View } from '@/pages/View';
+import { View } from '@/pages/View.js';
 import { Login } from '@/pages/Login';
 import { RegisterPage } from '@/pages/Register';
 import { Chats } from '@/pages/Chats';

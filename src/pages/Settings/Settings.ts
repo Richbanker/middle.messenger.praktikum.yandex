@@ -1,4 +1,4 @@
-import { View } from '../View';
+import { View } from '../View.js';
 import { template } from '@/utils/template';
 import { attachFormValidation } from '@/utils/validation';
 import { Block } from '@/core/Block';

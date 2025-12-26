@@ -1,4 +1,4 @@
-import { View } from '../View';
+import { View } from '../View.js';
 import { Block } from '@/core/Block';
 import { store, STORE_EVENTS } from '@/core/store';
 import { Chat } from '@/types';
