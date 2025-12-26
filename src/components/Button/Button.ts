@@ -1,5 +1,5 @@
 import Block from "../../services/Block.js";
-import { buttonTemplate } from "./buttonTemplate";
+import { buttonTemplate } from "./buttonTemplate.js";
 
 interface ButtonProps {
   text: string;

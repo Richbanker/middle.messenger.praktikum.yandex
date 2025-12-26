@@ -1,6 +1,6 @@
 import Block from "../../services/Block.js";
-import { iconTemplate } from "../icon/iconTebplate";
-import { conversationHeaderTemplate } from "./conversationHeaderTemplate";
+import { iconTemplate } from "../icon/iconTebplate.js";
+import { conversationHeaderTemplate } from "./conversationHeaderTemplate.js";
 import Handlebars from "handlebars";
 interface ConversationHeaderProps {
   name: string;

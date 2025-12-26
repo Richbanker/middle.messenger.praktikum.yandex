@@ -1,7 +1,7 @@
 import Block from "../../services/Block.js";
 import Handlebars from "handlebars";
-import { formInputGroupTemplate } from "./formInputGroupTemplate";
-import { formInputTemplate } from "../formInput/fornInputTemplate";
+import { formInputGroupTemplate } from "./formInputGroupTemplate.js";
+import { formInputTemplate } from "../formInput/fornInputTemplate.js";
 
 Handlebars.registerPartial("formInput", formInputTemplate);
 interface FormInputGroupProps {

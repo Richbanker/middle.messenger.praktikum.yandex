@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import Block from "../../services/Block.js";
-import { linkCardTemplate } from "./linkCardTemplate";
-import { iconTemplate } from "../icon/iconTebplate";
+import { linkCardTemplate } from "./linkCardTemplate.js";
+import { iconTemplate } from "../icon/iconTebplate.js";
 
 interface LinkCardProps {
   url: string;

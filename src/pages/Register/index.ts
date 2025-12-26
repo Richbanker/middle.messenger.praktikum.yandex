@@ -1,3 +1,3 @@
-export { RegisterPage } from './Register';
-export { RegisterPage as Register } from './Register';
+export { RegisterPage } from './Register.js';
+export { RegisterPage as Register } from './Register.js';
 

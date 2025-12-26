@@ -1,7 +1,7 @@
-import { chatsService } from '../services/ChatsService';
-import { validateMessage } from '../utils/validation';
-import { store } from '../core/store';
-import { Chat } from '../types';
+import { chatsService } from '../services/ChatsService.js';
+import { validateMessage } from '../utils/validation.js';
+import { store } from '../core/store.js';
+import { Chat } from '../types/index.js';
 
 class ChatsController {
   createChat(data: { title: string; avatar?: string }): Chat {

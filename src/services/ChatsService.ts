@@ -1,5 +1,5 @@
-import { store } from '../core/store';
-import { ID, Chat, Message } from '../types';
+import { store } from '../core/store.js';
+import { ID, Chat, Message } from '../types/index.js';
 
 const genId = (): ID => crypto.randomUUID();
 

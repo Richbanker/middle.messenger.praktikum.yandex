@@ -74,7 +74,7 @@ export class WebSocketService {
 
       try {
 
-        const { chatAPI } = await import('./api');
+        const { chatAPI } = await import('./api.js');
         const tokenResponse = await chatAPI.getWebSocketToken(config.chatId);
 
         const userData = await chatAPI.getCurrentUser();
