@@ -1,4 +1,4 @@
-import EventBus from "./EventBus.ts";
+import EventBus from "./EventBus.js";
 import Handlebars from "handlebars";
 import { v4 as uuidv4 } from "uuid";
 
