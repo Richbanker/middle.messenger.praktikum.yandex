@@ -5,7 +5,7 @@ import * as apiModule from './api.js';
 import Block from './Block.js';
 
 class PageA extends Block {
-  protected render() {
+  protected render(): HTMLElement {
     const div = document.createElement('div');
     div.textContent = 'A';
     return div;
@@ -13,7 +13,7 @@ class PageA extends Block {
 }
 
 class PageB extends Block {
-  protected render() {
+  protected render(): HTMLElement {
     const div = document.createElement('div');
     div.textContent = 'B';
     return div;
@@ -21,7 +21,7 @@ class PageB extends Block {
 }
 
 class NotFound extends Block {
-  protected render() {
+  protected render(): HTMLElement {
     const div = document.createElement('div');
     div.textContent = '404';
     return div;
