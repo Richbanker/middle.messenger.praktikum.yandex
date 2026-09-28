@@ -1,5 +1,8 @@
 # Messenger
 
+
+[![Просмотры README](https://vbr.nathanchung.dev/badge?page_id=Richbanker.middle.messenger.praktikum.yandex&text=README_Views)](https://github.com/Richbanker/middle.messenger.praktikum.yandex)
+
 Веб-приложение мессенджера, реализованное в рамках 2-го спринта Яндекс Практикума.
 
 ## 🚀 Deploy
