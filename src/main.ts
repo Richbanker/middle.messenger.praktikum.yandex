@@ -16,19 +16,34 @@ const routes: Record<Route, () => View> = {
   '/settings': () => new Settings(),
 };
 
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function getRoutePath(pathname: string): string {
+  if (basePath && pathname.startsWith(basePath)) {
+    return pathname.slice(basePath.length) || '/login';
+  }
+
+  return pathname;
+}
+
+function getBrowserPath(route: string): string {
+  return `${basePath}${route}` || route;
+}
+
 function renderRoute(pathname: string): void {
   const root = document.getElementById('app');
   if (!root) {
     throw new Error('#app not found');
   }
 
-  const route = (Object.keys(routes) as Route[]).includes(pathname as Route)
-    ? (pathname as Route)
+  const routePath = getRoutePath(pathname);
+  const route = (Object.keys(routes) as Route[]).includes(routePath as Route)
+    ? (routePath as Route)
     : '/login';
 
   const view = routes[route]();
   root.innerHTML = '';
-  
+
   const content = view.getContent();
   if (content) {
     root.appendChild(content);
@@ -51,14 +66,17 @@ document.addEventListener('click', (e: Event) => {
   if (!(target instanceof HTMLElement)) {
     return;
   }
-  const a = target.closest('a[data-link]') as HTMLAnchorElement | null;
-  if (!a) {
+
+  const anchor = target.closest('a[data-link]') as HTMLAnchorElement | null;
+  if (!anchor) {
     return;
   }
+
   e.preventDefault();
-  const url = new URL(a.href);
-  window.history.pushState(null, '', url.pathname);
-  renderRoute(url.pathname);
+  const url = new URL(anchor.href);
+  const routePath = getRoutePath(url.pathname);
+  window.history.pushState(null, '', getBrowserPath(routePath));
+  renderRoute(routePath);
 });
 
 window.addEventListener('popstate', () => {
