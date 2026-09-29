@@ -16,7 +16,9 @@ const routes: Record<Route, () => View> = {
   '/settings': () => new Settings(),
 };
 
-const basePath = (import.meta as ImportMeta & { env: { BASE_URL: string } }).env.BASE_URL.replace(\n  /\\/$/,\n  ''\n);
+const basePath = (
+  import.meta as ImportMeta & { env: { BASE_URL: string } }
+).env.BASE_URL.replace(/\/$/, '');
 
 function getRoutePath(pathname: string): string {
   if (basePath && pathname.startsWith(basePath)) {
