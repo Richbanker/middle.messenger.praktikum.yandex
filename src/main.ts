@@ -50,12 +50,18 @@ function renderRoute(pathname: string): void {
   if (content) {
     root.appendChild(content);
     view.show();
+    root.querySelectorAll<HTMLAnchorElement>('a[data-link]').forEach((link) => {
+      link.href = getBrowserPath(getRoutePath(new URL(link.href).pathname));
+    });
   } else {
     requestAnimationFrame(() => {
       const content = view.getContent();
       if (content && root) {
         root.appendChild(content);
         view.show();
+        root.querySelectorAll<HTMLAnchorElement>('a[data-link]').forEach((link) => {
+          link.href = getBrowserPath(getRoutePath(new URL(link.href).pathname));
+        });
       }
     });
   }
@@ -73,6 +79,8 @@ document.addEventListener('click', (e: Event) => {
   if (!anchor) {
     return;
   }
+
+  if ((e as MouseEvent).ctrlKey || (e as MouseEvent).metaKey || (e as MouseEvent).shiftKey || (e as MouseEvent).altKey) return;
 
   e.preventDefault();
   const url = new URL(anchor.href);
