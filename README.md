@@ -1,9 +1,11 @@
 # Messenger
 
+[Открыть публичное демо](https://richbanker.github.io/middle.messenger.praktikum.yandex/)
+
 
 [![Просмотры README](https://vbr.nathanchung.dev/badge?page_id=Richbanker.middle.messenger.praktikum.yandex&text=README_Views)](https://github.com/Richbanker/middle.messenger.praktikum.yandex)
 
-[Открыть проект](https://rebrand.ly/richbanker-messenger)
+[Репозиторий — счётчик переходов](https://rebrand.ly/richbanker-messenger)
 
 Веб-приложение мессенджера, реализованное в рамках 2-го спринта Яндекс Практикума.
 
