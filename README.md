@@ -11,7 +11,9 @@
 
 ## 🚀 Deploy
 
-[Посмотреть деплой на Netlify](https://deploy-preview-5--middle-messenger-sprint1.netlify.app)
+[Открыть действующее демо на GitHub Pages](https://richbanker.github.io/middle.messenger.praktikum.yandex/)
+
+Публично доступны страницы входа и регистрации. Список чатов и переписка требуют авторизации в учебном API.
 
 ## Описание
 
