@@ -1,7 +1,7 @@
 type Listener = (...args: unknown[]) => void;
 
 export class EventBus {
-  private listeners: Record<string, Listener[]> = {};
+  private listeners: Record<string, Listener[]> = Object.create(null);
 
   on(event: string, callback: Listener): void {
     if (!this.listeners[event]) {
